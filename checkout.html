@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
@@ -181,9 +181,29 @@ function populateSummary() {
   const reviewEl = document.getElementById('review-items');
   if (itemsEl) itemsEl.innerHTML = cart.map(i => `<div class="flex gap-1"><span style="flex:1;">${i.name} ×${i.qty}</span><span>${fmt(i.price*i.qty)}</span></div>`).join('');
   if (reviewEl) reviewEl.innerHTML = cart.map(i => `<div class="flex gap-1" style="margin-bottom:.4rem;font-size:var(--fs-sm);"><span style="flex:1;">${i.name} ×${i.qty}</span><span>${fmt(i.price*i.qty)}</span></div>`).join('');
-  const sub = fmt(Cart.total());
-  document.getElementById('co-subtotal').textContent = sub;
-  document.getElementById('co-total').textContent = sub;
+  
+  const sub = Cart.total();
+  const gst = sub * 0.18;
+  const total = sub + gst;
+  
+  document.getElementById('co-subtotal').textContent = fmt(sub);
+  
+  // Update or inject GST row
+  let gstRow = document.getElementById('co-gst');
+  if (!gstRow) {
+    const summaryCard = document.querySelector('.order-summary-card');
+    const shippingRow = [...summaryCard.querySelectorAll('.summary-row')].find(r => r.innerHTML.includes('Shipping'));
+    if (shippingRow) {
+      gstRow = document.createElement('div');
+      gstRow.className = 'summary-row';
+      gstRow.innerHTML = `<span>GST (18%)</span><span id="co-gst">${fmt(gst)}</span>`;
+      shippingRow.after(gstRow);
+    }
+  } else {
+    gstRow.textContent = fmt(gst);
+  }
+  
+  document.getElementById('co-total').textContent = fmt(total);
 }
 populateSummary();
 
