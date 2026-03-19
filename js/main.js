@@ -1,4 +1,4 @@
-﻿/* =========================================================
+/* =========================================================
    VERVA – main.js  |  Navigation · Theme · Scroll · Misc
    ========================================================= */
 
@@ -112,8 +112,10 @@ if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
 document.addEventListener('VERVA:opencart', openCart);
 
 /* ---- Scroll animations ---- */
-const animEls = $$('.anim-fade, .anim-left, .anim-right, .anim-scale');
-if (animEls.length) {
+function initScrollAnimations(root = document) {
+  const animEls = [...root.querySelectorAll('.anim-fade, .anim-left, .anim-right, .anim-scale')];
+  if (!animEls.length) return;
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -121,12 +123,22 @@ if (animEls.length) {
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
+
   animEls.forEach((el, i) => {
-    el.style.transitionDelay = `${(i % 4) * 0.08}s`;
-    observer.observe(el);
+    // Elements already visible on page load → show immediately
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      el.style.transitionDelay = `${(i % 6) * 0.06}s`;
+      setTimeout(() => el.classList.add('anim-in'), i * 40);
+    } else {
+      el.style.transitionDelay = `0s`;
+      observer.observe(el);
+    }
   });
 }
+initScrollAnimations();
+window.initScrollAnimations = initScrollAnimations; // exposed for shop.js dynamic cards
 
 /* ---- Magnetic buttons ---- */
 $$('.magnetic').forEach(el => {

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
@@ -109,13 +109,6 @@
 <script src="js/main.js"></script>
 <script src="js/cart.js"></script>
 <script>
-  // GST calc
-  document.addEventListener('VERVA:cartupdate', () => {
-    const subtotal = Cart.total();
-    const gst = Math.round(subtotal * 0.18);
-    const gstEl = document.getElementById('page-cart-gst');
-    if (gstEl) gstEl.textContent = '₹' + gst.toLocaleString('en-IN');
-  });
   // Pincode
   document.getElementById('pin-check')?.addEventListener('click', () => {
     const v = document.getElementById('pincode-input').value.trim();
@@ -126,10 +119,10 @@
       showToast('Please enter a valid 6-digit pincode', 'error');
     }
   });
-  // Coupon
+  // Coupon  (try VERVA10)
   document.getElementById('apply-coupon')?.addEventListener('click', () => {
     const v = document.getElementById('coupon-input').value.trim().toUpperCase();
-    if (v === 'VERVA10') showToast('Coupon applied! ₹10% off', 'success');
+    if (v === 'VERVA10') showToast('10% coupon applied! ✓', 'success');
     else showToast('Invalid coupon code', 'error');
   });
 </script>

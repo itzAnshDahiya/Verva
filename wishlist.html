@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
@@ -65,15 +65,31 @@
 <script src="js/cart.js"></script>
 <script src="js/product.js"></script>
 <script>
-// Static product catalog for wishlist lookup
+// Full product catalog (mirrors shop.html)
 const CATALOG = [
-  { id:'1', name:'VERVA Bedroom', price:24999, image:'assets/img/bedroom_purifier.png', variant:'Standard', rating:'4.9' },
-  { id:'2', name:'VERVA Office',  price:34999, image:'assets/img/office_purifier.png', variant:'Standard', rating:'4.8' },
-  { id:'3', name:'VERVA Pro',     price:49999, image:'assets/img/pro_purifier.png', variant:'Standard', rating:'4.9' },
-  { id:'4', name:'VERVA Mini',    price:14999, image:'assets/img/hero_purifier.png', variant:'Standard', rating:'4.7' },
-  { id:'5', name:'VERVA Max',     price:64999, image:'assets/img/lifestyle_section.png', variant:'Standard', rating:'4.8' },
-  { id:'f1',name:'HEPA Filter Pack', price:4999, image:'assets/img/hero_purifier.png', variant:'3-Pack', rating:'4.9' },
-  { id:'m1',name:'Smart Air Monitor', price:7999, image:'assets/img/office_purifier.png', variant:'Standard', rating:'4.7' },
+  { id:'1',  name:'Verva Bedroom',       price:24999, image:'assets/img/bedroom_purifier.png', variant:'bedroom',     rating:'4.9' },
+  { id:'2',  name:'Verva Office',        price:34999, image:'assets/img/office_purifier.png',  variant:'office',      rating:'4.8' },
+  { id:'3',  name:'Verva Pro',           price:49999, image:'assets/img/pro_purifier.png',     variant:'large',       rating:'4.9' },
+  { id:'4',  name:'Verva Mini',          price:14999, image:'assets/img/hero_purifier.png',    variant:'portable',    rating:'4.7' },
+  { id:'5',  name:'Verva Max',           price:64999, image:'assets/img/lifestyle_section.png',variant:'large',       rating:'4.8' },
+  { id:'6',  name:'Verva Sleep Pro',     price:29999, image:'assets/img/bedroom_purifier.png', variant:'bedroom',     rating:'4.8' },
+  { id:'7',  name:'Verva Nursery',       price:18999, image:'assets/img/bedroom_purifier.png', variant:'bedroom',     rating:'4.9' },
+  { id:'8',  name:'Verva Allergy Shield',price:34999, image:'assets/img/bedroom_purifier.png', variant:'bedroom',     rating:'4.7' },
+  { id:'9',  name:'Verva Desk Mini',     price:9999,  image:'assets/img/office_purifier.png',  variant:'office',      rating:'4.6' },
+  { id:'10', name:'Verva Studio',        price:22999, image:'assets/img/office_purifier.png',  variant:'office',      rating:'4.7' },
+  { id:'11', name:'Verva Conference',    price:44999, image:'assets/img/office_purifier.png',  variant:'office',      rating:'4.8' },
+  { id:'12', name:'Verva Elite 120',     price:74999, image:'assets/img/pro_purifier.png',     variant:'large',       rating:'4.9' },
+  { id:'13', name:'Verva Tower',         price:54999, image:'assets/img/pro_purifier.png',     variant:'large',       rating:'4.7' },
+  { id:'14', name:'Verva Home Plus',     price:39999, image:'assets/img/lifestyle_section.png',variant:'large',       rating:'4.8' },
+  { id:'15', name:'Verva Dual Zone',     price:59999, image:'assets/img/pro_purifier.png',     variant:'large',       rating:'4.7' },
+  { id:'16', name:'Verva Nano',          price:7999,  image:'assets/img/hero_purifier.png',    variant:'portable',    rating:'4.6' },
+  { id:'17', name:'Verva Car',           price:5999,  image:'assets/img/hero_purifier.png',    variant:'portable',    rating:'4.5' },
+  { id:'18', name:'Verva Travel Pro',    price:11999, image:'assets/img/hero_purifier.png',    variant:'portable',    rating:'4.7' },
+  { id:'f1', name:'HEPA Filter Pack',    price:4999,  image:'assets/img/hero_purifier.png',    variant:'accessories', rating:'4.9' },
+  { id:'f2', name:'Carbon Pre-Filter',   price:1999,  image:'assets/img/hero_purifier.png',    variant:'accessories', rating:'4.8' },
+  { id:'f3', name:'Smart Air Monitor',   price:7999,  image:'assets/img/office_purifier.png',  variant:'accessories', rating:'4.7' },
+  { id:'f4', name:'Verva Stand (Pro)',    price:2999,  image:'assets/img/pro_purifier.png',     variant:'accessories', rating:'4.6' },
+  { id:'f5', name:'Annual Filter Plan',  price:8999,  image:'assets/img/hero_purifier.png',    variant:'accessories', rating:'4.9' },
 ];
 
 function renderWishlistPage() {
