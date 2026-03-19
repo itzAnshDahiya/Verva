@@ -1,12 +1,12 @@
-/* =========================================================
-   WEAVE – main.js  |  Navigation · Theme · Scroll · Misc
+﻿/* =========================================================
+   VERVA – main.js  |  Navigation · Theme · Scroll · Misc
    ========================================================= */
 
 'use strict';
 
 /* ---- State ---- */
 const STATE = {
-  theme: localStorage.getItem('weave-theme') || 'light',
+  theme: localStorage.getItem('VERVA-theme') || 'light',
   menuOpen: false,
 };
 
@@ -18,7 +18,7 @@ const emit = (name, detail = {}) => document.dispatchEvent(new CustomEvent(name,
 /* ---- Theme ---- */
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem('weave-theme', theme);
+  localStorage.setItem('VERVA-theme', theme);
   STATE.theme = theme;
 }
 function toggleTheme() {
@@ -109,7 +109,7 @@ function closeCart() {
 if (cartBtn) cartBtn.addEventListener('click', openCart);
 if (cartClose) cartClose.addEventListener('click', closeCart);
 if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
-document.addEventListener('weave:opencart', openCart);
+document.addEventListener('VERVA:opencart', openCart);
 
 /* ---- Scroll animations ---- */
 const animEls = $$('.anim-fade, .anim-left, .anim-right, .anim-scale');
@@ -201,4 +201,4 @@ if (bgWord) {
 }
 
 /* ---- Expose helpers ---- */
-window.WeaveMain = { showToast, openCart, closeCart, toggleTheme };
+window.VERVAMain = { showToast, openCart, closeCart, toggleTheme };

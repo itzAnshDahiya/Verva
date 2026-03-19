@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="VERVA Support – FAQ, contact, and help centre." />
+  <title>Support – Verva</title>
+  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+</head>
+<body>
+
+<header id="site-header">
+  <a href="index.html" class="header-logo">VERVA<span class="dot">.</span></a>
+  <nav class="header-nav">
+    <a href="index.html">Home</a><a href="shop.html">Shop</a><a href="about.html">About</a><a href="support.html" class="active">Support</a>
+  </nav>
+  <div class="header-actions">
+    <button id="theme-toggle"></button>
+    <button class="hdr-icon" id="cart-btn"><i class="fas fa-bag-shopping"></i><span class="badge cart-count-badge">0</span></button>
+    <a href="login.html" class="hdr-icon" id="header-avatar-btn"><i class="fas fa-circle-user"></i></a>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<nav class="mobile-nav" id="mobile-nav"><a href="index.html">Home</a><a href="shop.html">Shop</a></nav>
+
+<!-- Hero -->
+<div class="support-hero page-wrapper anim-fade">
+  <div class="section-label">Help Centre</div>
+  <h1 style="font-size:clamp(2rem,5vw,3.5rem);">How can we help?</h1>
+  <p>Browse our FAQ or reach out directly — we typically respond within 2 hours.</p>
+  <div class="support-search-wrap">
+    <input type="text" id="faq-search" placeholder="Search: filter, noise, installation…" />
+    <i class="fas fa-magnifying-glass"></i>
+  </div>
+  <!-- Quick links -->
+  <div class="flex gap-2" style="flex-wrap:wrap;justify-content:center;margin-top:1rem;">
+    <span class="chip">Filter Replacement</span>
+    <span class="chip">Warranty</span>
+    <span class="chip">Returns</span>
+    <span class="chip">App Setup</span>
+    <span class="chip">Noise</span>
+  </div>
+</div>
+
+<!-- FAQ + Contact -->
+<section>
+  <div class="faq-grid">
+    <div class="anim-left">
+      <h2 style="margin-bottom:2rem;">Frequently Asked Questions</h2>
+      <div class="accordion-group">
+        <div class="accordion-item open">
+          <div class="accordion-header">How often should I replace my filter? <i class="fas fa-chevron-down"></i></div>
+          <div class="accordion-body"><p>Every 12 months or 5,000 hours, whichever comes first. Your VERVA device will show a filter indicator and the app sends an automatic reminder. Replacement filters ship free with our subscription plan.</p></div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header">How noisy is the purifier on max speed? <i class="fas fa-chevron-down"></i></div>
+          <div class="accordion-body"><p>On maximum turbo speed, the VERVA Pro reaches 56 dB — similar to a calm conversation. On sleep mode it drops to just 28 dB, barely audible even in a quiet bedroom.</p></div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header">Can I control it without the app? <i class="fas fa-chevron-down"></i></div>
+          <div class="accordion-body"><p>Yes! Touch controls on the device let you change speed, set a timer, and toggle auto mode — no phone needed. Wi-Fi enables remote control, scheduling, and air quality history.</p></div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header">What is your return policy? <i class="fas fa-chevron-down"></i></div>
+          <div class="accordion-body"><p>We offer an unconditional 30-day return policy. If you're not satisfied, we arrange a free pickup and process your refund within 5 business days. No questions asked.</p></div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header">Does the purifier remove pet odour? <i class="fas fa-chevron-down"></i></div>
+          <div class="accordion-body"><p>Yes — the activated carbon layer in every VERVA filter is specifically rated for pet dander and odour elimination. We recommend the "Pet Home" preset in the app for optimal performance.</p></div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header">What does the warranty cover? <i class="fas fa-chevron-down"></i></div>
+          <div class="accordion-body"><p>Our 2-year comprehensive warranty covers all manufacturing defects, motor failure, and electronics. In year one we offer a no-questions-asked replacement. Filters are not covered under warranty but are included in subscription plans.</p></div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header">Is installation required? <i class="fas fa-chevron-down"></i></div>
+          <div class="accordion-body"><p>No installation needed at all. Place the purifier in your room, plug it in, and it's ready to use in under 2 minutes. Wi-Fi pairing with the app takes another 3 minutes.</p></div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header">How do I claim warranty? <i class="fas fa-chevron-down"></i></div>
+          <div class="accordion-body"><p>Contact us via the form opposite, our chat widget, or email support@VERVA.in. Keep your order number handy. We'll guide you through the process step by step.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact card -->
+    <div class="anim-right">
+      <h2 style="margin-bottom:2rem;">Contact Us</h2>
+      <div class="glass-card" style="margin-bottom:1.5rem;">
+        <form id="contact-form">
+          <div class="form-group"><label class="form-label">Name</label><input class="form-input" type="text" placeholder="Your Name" id="c-name" /></div>
+          <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="your@email.com" id="c-email" /></div>
+          <div class="form-group">
+            <label class="form-label">Topic</label>
+            <select class="form-select">
+              <option>Filter / Maintenance</option>
+              <option>Warranty / Defect</option>
+              <option>Order Issue</option>
+              <option>App Help</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Describe your issue…"></textarea></div>
+          <button type="submit" class="btn btn-primary btn-block">Send Message <i class="fas fa-paper-plane"></i></button>
+        </form>
+      </div>
+
+      <!-- Contact methods -->
+      <div style="display:flex;flex-direction:column;gap:.75rem;">
+        <div class="flex gap-2" style="padding:1rem;background:var(--bg-alt);border-radius:var(--r);">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(255,106,61,.1);display:flex;align-items:center;justify-content:center;color:var(--cta);"><i class="fas fa-comments"></i></div>
+          <div>
+            <strong style="font-size:.9rem;">Live Chat</strong>
+            <p style="font-size:var(--fs-xs);">Mon–Sat, 9am–8pm IST</p>
+          </div>
+          <button class="btn btn-primary btn-sm" style="margin-left:auto;" id="chat-btn">Chat Now</button>
+        </div>
+        <div class="flex gap-2" style="padding:1rem;background:var(--bg-alt);border-radius:var(--r);">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(79,70,229,.1);display:flex;align-items:center;justify-content:center;color:var(--blue);"><i class="fas fa-envelope"></i></div>
+          <div>
+            <strong style="font-size:.9rem;">Email Support</strong>
+            <p style="font-size:var(--fs-xs);">support@VERVA.in · Replies in 2hrs</p>
+          </div>
+        </div>
+        <div class="flex gap-2" style="padding:1rem;background:var(--bg-alt);border-radius:var(--r);">
+          <div style="width:40px;height:40px;border-radius:50%;background:rgba(22,163,74,.1);display:flex;align-items:center;justify-content:center;color:var(--success);"><i class="fab fa-whatsapp"></i></div>
+          <div>
+            <strong style="font-size:.9rem;">WhatsApp</strong>
+            <p style="font-size:var(--fs-xs);">+91 98765 00000</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<aside id="mini-cart" role="dialog">
+  <div class="mini-cart-header"><h3>Cart <span id="mini-cart-count"></span></h3><button class="hdr-icon" id="cart-close"><i class="fas fa-xmark"></i></button></div>
+  <div class="mini-cart-body" id="mini-cart-body"></div>
+  <div class="mini-cart-footer"><div class="cart-total-row"><span>Total</span><span id="mini-cart-total">₹0</span></div><a href="checkout.html" class="btn btn-primary btn-block mb-2">Checkout</a></div>
+</aside>
+<div class="cart-overlay" id="cart-overlay"></div>
+<div id="toast-container"></div>
+
+<footer id="site-footer" style="margin-top:5rem;">
+  <div class="footer-inner"><div class="footer-bottom"><p>© 2026 VERVA Technologies Pvt. Ltd.</p><div class="footer-bottom-links"><a href="index.html">Home</a><a href="about.html">About</a></div></div></div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/cart.js"></script>
+<script>
+  document.getElementById('contact-form')?.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = document.getElementById('c-name').value.trim();
+    const email = document.getElementById('c-email').value.trim();
+    if (!name || !email) { showToast('Please fill your name and email', 'error'); return; }
+    showToast('Message sent! We\'ll reply within 2 hours.', 'success');
+    e.target.reset();
+  });
+  document.getElementById('chat-btn')?.addEventListener('click', () => {
+    showToast('Live chat launching… (demo)', 'success');
+  });
+  // FAQ search filter
+  document.getElementById('faq-search')?.addEventListener('input', function() {
+    const q = this.value.toLowerCase();
+    document.querySelectorAll('.accordion-item').forEach(item => {
+      const text = item.textContent.toLowerCase();
+      item.style.display = (!q || text.includes(q)) ? '' : 'none';
+    });
+  });
+</script>
+</body>
+</html>

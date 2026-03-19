@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Page not found – VERVA." />
+  <title>404 – VERVA</title>
+  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+</head>
+<body>
+
+<header id="site-header">
+  <a href="index.html" class="header-logo">VERVA<span class="dot">.</span></a>
+  <nav class="header-nav">
+    <a href="index.html">Home</a><a href="shop.html">Shop</a><a href="about.html">About</a><a href="support.html">Support</a>
+  </nav>
+  <div class="header-actions">
+    <button id="theme-toggle"></button>
+    <button class="hdr-icon" id="cart-btn"><i class="fas fa-bag-shopping"></i><span class="badge cart-count-badge">0</span></button>
+  </div>
+</header>
+
+<div class="not-found">
+  <div class="bg-number" aria-hidden="true">404</div>
+  <div class="not-found-content anim-fade">
+    <div style="font-size:3.5rem;margin-bottom:1rem;" aria-hidden="true">🌫️</div>
+    <h1>Lost in the Air</h1>
+    <p>The page you're looking for seems to have been filtered out. Let's get you back to clean air.</p>
+    <div class="flex gap-2" style="justify-content:center;flex-wrap:wrap;">
+      <a href="index.html" class="btn btn-primary btn-lg"><i class="fas fa-house"></i> Back Home</a>
+      <a href="shop.html" class="btn btn-ghost btn-lg"><i class="fas fa-bag-shopping"></i> Shop Purifiers</a>
+    </div>
+    <div style="margin-top:3rem;display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
+      <span class="float-chip"><i class="fas fa-wind"></i> Ultra-Clean Air</span>
+      <span class="float-chip"><i class="fas fa-volume-off"></i> 42 dB Silent</span>
+      <span class="float-chip"><i class="fas fa-star"></i> 12K+ Reviews</span>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<footer id="site-footer" style="position:fixed;bottom:0;left:0;right:0;padding:1rem var(--page-pad);border-top:1px solid var(--glass-dark);background:var(--glass);backdrop-filter:var(--blur);">
+  <div style="max-width:1600px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
+    <p style="font-size:var(--fs-xs);color:var(--text-light);">© 2026 VERVA Technologies Pvt. Ltd.</p>
+    <div style="display:flex;gap:1.5rem;">
+      <a href="index.html" style="font-size:var(--fs-xs);color:var(--text-light);">Home</a>
+      <a href="shop.html" style="font-size:var(--fs-xs);color:var(--text-light);">Shop</a>
+      <a href="support.html" style="font-size:var(--fs-xs);color:var(--text-light);">Support</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/cart.js"></script>
+</body>
+</html>

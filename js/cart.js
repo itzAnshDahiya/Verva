@@ -1,16 +1,16 @@
-/* =========================================================
-   WEAVE – cart.js  |  Cart state, mini-cart UI, persistence
+﻿/* =========================================================
+   VERVA – cart.js  |  Cart state, mini-cart UI, persistence
    ========================================================= */
 
 'use strict';
 
 /* ---- Persistence ---- */
 function loadCart() {
-  try { return JSON.parse(localStorage.getItem('weave-cart')) || []; }
+  try { return JSON.parse(localStorage.getItem('VERVA-cart')) || []; }
   catch { return []; }
 }
 function saveCart(cart) {
-  localStorage.setItem('weave-cart', JSON.stringify(cart));
+  localStorage.setItem('VERVA-cart', JSON.stringify(cart));
 }
 
 /* ---- Cart State ---- */
@@ -35,9 +35,9 @@ function addToCart(product) {
   saveCart(cart);
   renderMiniCart();
   updateCartBadge();
-  document.dispatchEvent(new CustomEvent('weave:cartupdate', { detail: { cart } }));
+  document.dispatchEvent(new CustomEvent('VERVA:cartupdate', { detail: { cart } }));
   window.showToast?.(`${product.name} added to cart`, 'success');
-  document.dispatchEvent(new CustomEvent('weave:opencart'));
+  document.dispatchEvent(new CustomEvent('VERVA:opencart'));
 }
 
 function removeFromCart(id, variant) {

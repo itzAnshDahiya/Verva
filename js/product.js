@@ -1,5 +1,5 @@
-/* =========================================================
-   WEAVE – product.js  |  Gallery · Tabs · Compare · Wishlist
+﻿/* =========================================================
+   VERVA – product.js  |  Gallery · Tabs · Compare · Wishlist
    ========================================================= */
 'use strict';
 
@@ -58,10 +58,10 @@ if (productSections.length) {
 
 /* ---- Wishlist ---- */
 function getWishlist() {
-  try { return JSON.parse(localStorage.getItem('weave-wishlist')) || []; } catch { return []; }
+  try { return JSON.parse(localStorage.getItem('VERVA-wishlist')) || []; } catch { return []; }
 }
 function saveWishlist(list) {
-  localStorage.setItem('weave-wishlist', JSON.stringify(list));
+  localStorage.setItem('VERVA-wishlist', JSON.stringify(list));
 }
 function isWishlisted(id) {
   return getWishlist().includes(String(id));
@@ -136,4 +136,4 @@ document.addEventListener('click', e => {
   else if (compareDrawer) compareDrawer.classList.remove('open');
 });
 
-window.WeaveProd = { toggleWishlist, isWishlisted, getWishlist };
+window.VERVAProd = { toggleWishlist, isWishlisted, getWishlist };

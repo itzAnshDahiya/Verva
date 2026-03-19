@@ -1,25 +1,25 @@
-/* =========================================================
-   WEAVE – auth.js  |  Login & Signup flow
+﻿/* =========================================================
+   VERVA – auth.js  |  Login & Signup flow
    ========================================================= */
 'use strict';
 
 /* ---- Fake user store ---- */
 function getUsers() {
-  try { return JSON.parse(localStorage.getItem('weave-users')) || []; }
+  try { return JSON.parse(localStorage.getItem('VERVA-users')) || []; }
   catch { return []; }
 }
 function saveUsers(users) {
-  localStorage.setItem('weave-users', JSON.stringify(users));
+  localStorage.setItem('VERVA-users', JSON.stringify(users));
 }
 function getSession() {
-  try { return JSON.parse(localStorage.getItem('weave-session')); }
+  try { return JSON.parse(localStorage.getItem('VERVA-session')); }
   catch { return null; }
 }
 function setSession(user) {
-  localStorage.setItem('weave-session', JSON.stringify(user));
+  localStorage.setItem('VERVA-session', JSON.stringify(user));
 }
 function clearSession() {
-  localStorage.removeItem('weave-session');
+  localStorage.removeItem('VERVA-session');
 }
 function isLoggedIn() { return !!getSession(); }
 

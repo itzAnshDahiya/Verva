@@ -1,7 +1,7 @@
-{
-  "name": "weave-ecommerce",
+﻿{
+  "name": "VERVA-ecommerce",
   "version": "1.0.0",
-  "description": "Weave – Premium Air Purifier E-Commerce Store",
+  "description": "VERVA – Premium Air Purifier E-Commerce Store",
   "scripts": {
     "dev": "live-server --port=5500 --open=/index.html",
     "start": "live-server --port=5500"
