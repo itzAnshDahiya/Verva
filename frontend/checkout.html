@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="VERVA Checkout – fast, secure 3-step checkout." />
+  <title>Checkout – VERVA</title>
+  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+</head>
+<body>
+
+<header id="site-header">
+  <a href="index.html" class="header-logo">VERVA<span class="dot">.</span></a>
+  <div class="header-actions">
+    <button id="theme-toggle"></button>
+    <a href="cart.html" class="btn btn-ghost btn-sm"><i class="fas fa-arrow-left"></i> Back to Cart</a>
+  </div>
+</header>
+
+<div class="checkout-layout">
+  <div>
+    <!-- Step progress -->
+    <div class="step-progress anim-fade" id="step-progress">
+      <div class="step-dot active" id="sdot-1">1</div>
+      <div class="step-line" id="sline-1"></div>
+      <div class="step-dot" id="sdot-2">2</div>
+      <div class="step-line" id="sline-2"></div>
+      <div class="step-dot" id="sdot-3">3</div>
+    </div>
+
+    <div class="checkout-form-card anim-fade">
+
+      <!-- Step 1: Shipping -->
+      <div class="checkout-step active" id="co-step-1">
+        <h3><i class="fas fa-truck" style="color:var(--cta);margin-right:.5rem;"></i>Shipping Details</h3>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">First Name</label><input class="form-input" type="text" placeholder="Arjun" id="ship-fname" /></div>
+          <div class="form-group"><label class="form-label">Last Name</label><input class="form-input" type="text" placeholder="Kapoor" id="ship-lname" /></div>
+        </div>
+        <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" placeholder="your@email.com" id="ship-email" /></div>
+        <div class="form-group"><label class="form-label">Phone</label><input class="form-input" type="tel" placeholder="+91 98765 43210" id="ship-phone" /></div>
+        <div class="form-group"><label class="form-label">Address Line 1</label><input class="form-input" type="text" placeholder="House / Flat / Street" id="ship-addr1" /></div>
+        <div class="form-group"><label class="form-label">Address Line 2 (Optional)</label><input class="form-input" type="text" placeholder="Area / Landmark" /></div>
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">City</label><input class="form-input" type="text" placeholder="Mumbai" /></div>
+          <div class="form-group"><label class="form-label">Pincode</label><input class="form-input" type="text" placeholder="400001" maxlength="6" /></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">State</label>
+          <select class="form-select">
+            <option value="">Select State</option>
+            <option>Maharashtra</option><option>Karnataka</option><option>Tamil Nadu</option>
+            <option>Delhi</option><option>Uttar Pradesh</option><option>West Bengal</option>
+            <option>Gujarat</option><option>Rajasthan</option><option>Telangana</option>
+          </select>
+        </div>
+        <button class="btn btn-primary btn-block btn-lg" id="co-next-1">
+          Continue to Payment <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <!-- Step 2: Payment -->
+      <div class="checkout-step" id="co-step-2">
+        <h3><i class="fas fa-credit-card" style="color:var(--cta);margin-right:.5rem;"></i>Payment Method</h3>
+        <div class="payment-method selected" id="pm-upi">
+          <i class="fas fa-mobile-screen-button" style="color:#4F46E5;"></i>
+          <span>UPI / GPay / PhonePe</span>
+          <i class="fas fa-circle-check" style="color:var(--cta);margin-left:auto;"></i>
+        </div>
+        <div class="payment-method" id="pm-card">
+          <i class="fas fa-credit-card" style="color:#0EA5E9;"></i>
+          <span>Credit / Debit Card</span>
+        </div>
+        <div class="payment-method" id="pm-cod">
+          <i class="fas fa-money-bill-wave" style="color:var(--success);"></i>
+          <span>Cash on Delivery</span>
+        </div>
+        <div class="payment-method" id="pm-emi">
+          <i class="fas fa-calendar-days" style="color:#F59E0B;"></i>
+          <span>No-Cost EMI (3–12 months)</span>
+        </div>
+
+        <div style="margin-top:1.5rem;padding:1rem;background:var(--bg-muted);border-radius:var(--radius);">
+          <div style="display:flex;gap:.75rem;">
+            <input class="form-input" type="text" id="coupon-code" placeholder="Enter promo code" style="flex:1;margin:0;" />
+            <button type="button" class="btn btn-ghost" id="apply-coupon" style="white-space:nowrap;">Apply</button>
+          </div>
+          <div id="coupon-message" style="font-size:var(--fs-sm);margin-top:.5rem;display:none;"></div>
+        </div>
+
+        <div id="upi-form" style="margin-top:1.5rem;">
+          <div class="form-group"><label class="form-label">UPI ID</label><input class="form-input" type="text" placeholder="yourname@upi" /></div>
+        </div>
+
+        <div style="display:flex;gap:.75rem;margin-top:1.5rem;">
+          <button class="btn btn-ghost" id="co-back-1"><i class="fas fa-arrow-left"></i> Back</button>
+          <button class="btn btn-primary btn-lg" style="flex:1;" id="co-next-2">Review Order <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- Step 3: Review -->
+      <div class="checkout-step" id="co-step-3">
+        <h3><i class="fas fa-clipboard-check" style="color:var(--cta);margin-right:.5rem;"></i>Review &amp; Place Order</h3>
+        <div class="glass-card" style="margin-bottom:1.5rem;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:.5rem;">
+            <strong style="font-size:var(--fs-sm);">Shipping to</strong>
+            <button class="btn btn-ghost btn-sm" id="edit-ship">Edit</button>
+          </div>
+          <p id="review-address" style="font-size:var(--fs-sm);">Loading address…</p>
+        </div>
+        <div class="glass-card" style="margin-bottom:1.5rem;">
+          <strong style="font-size:var(--fs-sm);">Payment: UPI / GPay</strong>
+        </div>
+        <div class="glass-card" style="margin-bottom:1.5rem;">
+          <strong style="font-size:var(--fs-sm);display:block;margin-bottom:.75rem;">Order Items</strong>
+          <div id="review-items"></div>
+        </div>
+        <div style="display:flex;gap:.75rem;">
+          <button class="btn btn-ghost" id="co-back-2"><i class="fas fa-arrow-left"></i> Back</button>
+          <button class="btn btn-primary btn-lg" style="flex:1;" id="place-order">
+            <i class="fas fa-lock"></i> Place Order
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 4: Success -->
+      <div class="checkout-step" id="co-success">
+        <div style="text-align:center;padding:2rem 0;">
+          <div style="font-size:4rem;margin-bottom:1rem;">🎉</div>
+          <h3 style="font-size:1.6rem;margin-bottom:.75rem;">Order Placed!</h3>
+          <p style="margin-bottom:2rem;">Your VERVA purifier is being packed. You'll receive a tracking link via email within 24 hours.</p>
+          <div class="order-timeline" style="max-width:360px;margin:0 auto 2rem;">
+            <div class="timeline-step done"><div class="timeline-dot"><i class="fas fa-check"></i></div><div class="timeline-label">Ordered</div><div class="timeline-line"></div></div>
+            <div class="timeline-step active"><div class="timeline-dot"><i class="fas fa-box"></i></div><div class="timeline-label">Packing</div><div class="timeline-line"></div></div>
+            <div class="timeline-step"><div class="timeline-dot"><i class="fas fa-truck"></i></div><div class="timeline-label">Shipped</div><div class="timeline-line"></div></div>
+            <div class="timeline-step"><div class="timeline-dot"><i class="fas fa-house"></i></div><div class="timeline-label">Delivered</div></div>
+          </div>
+          <a href="account.html" class="btn btn-primary btn-lg">Track my order</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky summary -->
+  <div class="order-summary-card anim-right">
+    <h3>Order Summary</h3>
+    <div id="checkout-items" style="margin-bottom:1rem;font-size:var(--fs-sm);display:flex;flex-direction:column;gap:.5rem;"></div>
+    <div class="summary-row"><span>Subtotal</span><span id="co-subtotal">₹0</span></div>
+    <div class="summary-row"><span>Shipping</span><span style="color:var(--success);">Free</span></div>
+    <div class="summary-total"><span>Total</span><span id="co-total">₹0</span></div>
+    <div class="footer-trust" style="margin-top:1rem;justify-content:center;flex-wrap:wrap;">
+      <span class="trust-badge"><i class="fas fa-shield-halved"></i> SSL Secure</span>
+      <span class="trust-badge"><i class="fas fa-award"></i> PCI Compliant</span>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="js/main.js"></script>
+<script src="js/cart.js"></script>
+<script>
+const fmt = n => '₹' + n.toLocaleString('en-IN');
+
+function goStep(n) {
+  document.querySelectorAll('.checkout-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('co-step-' + n)?.classList.add('active');
+  // Progress dots
+  [1,2,3].forEach(i => {
+    const dot = document.getElementById('sdot-' + i);
+    const line = document.getElementById('sline-' + i);
+    if (dot) { dot.classList.toggle('done', i < n); dot.classList.toggle('active', i === n); }
+    if (line) line.classList.toggle('done', i < n);
+    if (i < n && dot) dot.innerHTML = '<i class="fas fa-check"></i>';
+  });
+}
+
+// Populate summary
+function populateSummary() {
+  const cart = Cart.getCart();
+  const itemsEl = document.getElementById('checkout-items');
+  const reviewEl = document.getElementById('review-items');
+  if (itemsEl) itemsEl.innerHTML = cart.map(i => `<div class="flex gap-1"><span style="flex:1;">${i.name} ×${i.qty}</span><span>${fmt(i.price*i.qty)}</span></div>`).join('');
+  if (reviewEl) reviewEl.innerHTML = cart.map(i => `<div class="flex gap-1" style="margin-bottom:.4rem;font-size:var(--fs-sm);"><span style="flex:1;">${i.name} ×${i.qty}</span><span>${fmt(i.price*i.qty)}</span></div>`).join('');
+  
+  const sub = Cart.total();
+  const gst = sub * 0.18;
+  const total = sub + gst;
+  
+  document.getElementById('co-subtotal').textContent = fmt(sub);
+  
+  // Update or inject GST row
+  let gstRow = document.getElementById('co-gst');
+  if (!gstRow) {
+    const summaryCard = document.querySelector('.order-summary-card');
+    const shippingRow = [...summaryCard.querySelectorAll('.summary-row')].find(r => r.innerHTML.includes('Shipping'));
+    if (shippingRow) {
+      gstRow = document.createElement('div');
+      gstRow.className = 'summary-row';
+      gstRow.innerHTML = `<span>GST (18%)</span><span id="co-gst">${fmt(gst)}</span>`;
+      shippingRow.after(gstRow);
+    }
+  } else {
+    gstRow.textContent = fmt(gst);
+  }
+  
+  document.getElementById('co-total').textContent = fmt(total);
+}
+populateSummary();
+
+document.getElementById('co-next-1')?.addEventListener('click', () => {
+  const fname = document.getElementById('ship-fname').value.trim();
+  const email = document.getElementById('ship-email').value.trim();
+  if (!fname || !email) { showToast('Please fill all required fields', 'error'); return; }
+  document.getElementById('review-address').textContent =
+    `${document.getElementById('ship-fname').value} ${document.getElementById('ship-lname').value}, ${document.getElementById('ship-addr1').value || '—'}`;
+  goStep(2);
+});
+document.getElementById('co-next-2')?.addEventListener('click', () => goStep(3));
+document.getElementById('co-back-1')?.addEventListener('click', () => goStep(1));
+document.getElementById('co-back-2')?.addEventListener('click', () => goStep(2));
+document.getElementById('edit-ship')?.addEventListener('click', () => goStep(1));
+
+// Payment methods
+document.querySelectorAll('.payment-method').forEach(pm => {
+  pm.addEventListener('click', () => {
+    document.querySelectorAll('.payment-method').forEach(p => p.classList.remove('selected'));
+    pm.classList.add('selected');
+  });
+});
+
+// Apply coupon code
+document.getElementById('apply-coupon')?.addEventListener('click', async () => {
+  const couponCode = document.getElementById('coupon-code')?.value.trim();
+  const messageEl = document.getElementById('coupon-message');
+  
+  if (!couponCode) {
+    messageEl.textContent = 'Please enter a coupon code';
+    messageEl.style.color = 'var(--error)';
+    messageEl.style.display = 'block';
+    return;
+  }
+
+  try {
+    const response = await API.Cart.applyCoupon(couponCode);
+    if (response.success) {
+      messageEl.textContent = `✓ Coupon applied! Discount: ${response.discount || ''}`;
+      messageEl.style.color = 'var(--success)';
+      messageEl.style.display = 'block';
+      populateSummary();
+    } else {
+      messageEl.textContent = response.message || 'Invalid coupon code';
+      messageEl.style.color = 'var(--error)';
+      messageEl.style.display = 'block';
+    }
+  } catch (error) {
+    messageEl.textContent = error.message || 'Failed to apply coupon';
+    messageEl.style.color = 'var(--error)';
+    messageEl.style.display = 'block';
+  }
+});
+
+// Place order
+document.getElementById('place-order')?.addEventListener('click', async () => {
+  showToast('Placing your order…');
+  
+  try {
+    const cart = Cart.getCart();
+    if (!cart || cart.length === 0) {
+      showToast('Your cart is empty', 'error');
+      return;
+    }
+
+    // Get shipping details
+    const shippingData = {
+      firstName: document.getElementById('ship-fname').value.trim(),
+      lastName: document.getElementById('ship-lname').value.trim(),
+      email: document.getElementById('ship-email').value.trim(),
+      phone: document.getElementById('ship-phone').value.trim(),
+      address1: document.getElementById('ship-addr1').value.trim(),
+      address2: document.querySelector('input[placeholder="Area / Landmark"]')?.value.trim() || '',
+      city: document.querySelector('input[placeholder="Mumbai"]')?.value.trim(),
+      pincode: document.querySelector('input[placeholder="400001"]')?.value.trim(),
+      state: document.querySelector('.form-select').value,
+    };
+
+    // Validate shipping data
+    if (!shippingData.firstName || !shippingData.email || !shippingData.address1 || !shippingData.city || !shippingData.pincode) {
+      showToast('Please fill all required shipping fields', 'error');
+      goStep(1);
+      return;
+    }
+
+    // Get selected payment method
+    const paymentMethod = document.querySelector('.payment-method.selected')?.id?.replace('pm-', '') || 'upi';
+
+    // Prepare order payload
+    const orderData = {
+      items: cart.map(item => ({
+        productId: item.id,
+        quantity: item.qty,
+        variant: item.variant,
+        price: item.price,
+      })),
+      shippingAddress: shippingData,
+      paymentMethod: paymentMethod,
+      couponCode: document.getElementById('coupon-code')?.value.trim() || null,
+    };
+
+    // Send order to backend
+    const response = await API.Order.createOrder(orderData);
+
+    if (response.success || response.orderId) {
+      // Clear cart
+      localStorage.removeItem('VERVA-cart');
+      document.querySelectorAll('.cart-count-badge').forEach(el => { el.textContent = 0; });
+      
+      // Show success screen
+      document.querySelectorAll('.checkout-step').forEach(s => s.classList.remove('active'));
+      document.getElementById('co-success').classList.add('active');
+      document.getElementById('step-progress').style.display = 'none';
+      showToast('Order placed successfully! 🎉', 'success');
+    } else {
+      showToast(response.message || 'Failed to place order', 'error');
+    }
+  } catch (error) {
+    console.error('Order placement error:', error);
+    showToast(error.message || 'Failed to place order', 'error');
+  }
+});
+</script>
+</body>
+</html>

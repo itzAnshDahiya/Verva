@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Create your VERVA account and get personalized air quality recommendations." />
+  <title>Sign Up – VERVA</title>
+  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+</head>
+<body>
+
+<div class="auth-page" style="flex-direction:row-reverse;">
+  <!-- Right visual -->
+  <div class="auth-visual">
+    <img src="assets/img/about_brand.png" alt="VERVA brand" />
+    <div class="auth-visual-overlay">
+      <div class="auth-visual-brand">VERVA.</div>
+      <div class="auth-visual-word" aria-hidden="true">START</div>
+    </div>
+  </div>
+
+  <!-- Left form -->
+  <div class="auth-form-side">
+    <div class="auth-form-card">
+      <a href="index.html" class="header-logo" style="margin-bottom:2rem;display:inline-flex;">VERVA<span class="dot">.</span></a>
+      <h2>Create Account</h2>
+      <p>Join 50,000+ households breathing cleaner air.</p>
+
+      <!-- Step dots -->
+      <div class="signup-steps mt-3">
+        <div class="signup-step-dot active" id="dot-1"></div>
+        <div class="signup-step-dot" id="dot-2"></div>
+      </div>
+
+      <form id="signup-form">
+        <!-- Step 1 -->
+        <div class="signup-form-step" id="step-1">
+          <div class="form-group">
+            <label class="form-label" for="signup-name">Full Name</label>
+            <input class="form-input" type="text" id="signup-name" placeholder="Arjun Kapoor" required autocomplete="name" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-email">Email Address</label>
+            <input class="form-input" type="email" id="signup-email" placeholder="your@email.com" required autocomplete="email" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-password">Password</label>
+            <input class="form-input" type="password" id="signup-password" placeholder="Min. 6 characters" required autocomplete="new-password" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-phone">Phone Number</label>
+            <input class="form-input" type="tel" id="signup-phone" placeholder="+91 98765 43210" required autocomplete="tel" />
+          </div>
+          <button type="button" class="btn btn-primary btn-block btn-lg" id="signup-next">
+            Continue <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="signup-form-step" id="step-2" style="display:none;">
+          <p style="margin-bottom:1.5rem;font-size:var(--fs-sm);">Help us personalise your experience <span style="opacity:.5;">(optional)</span></p>
+          <div class="form-group">
+            <label class="form-label">Home Size</label>
+            <div class="flex gap-2" style="flex-wrap:wrap;">
+              <button type="button" class="chip" id="size-small">Studio / 1BHK</button>
+              <button type="button" class="chip" id="size-med">2–3 BHK</button>
+              <button type="button" class="chip" id="size-large">4+ BHK / Villa</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Any Concerns?</label>
+            <div class="flex gap-2" style="flex-wrap:wrap;">
+              <button type="button" class="chip">Allergies</button>
+              <button type="button" class="chip">Pet Odour</button>
+              <button type="button" class="chip">Pollution</button>
+              <button type="button" class="chip">Dust</button>
+              <button type="button" class="chip">Smoke</button>
+            </div>
+          </div>
+          <div class="form-group" style="display:flex;align-items:center;gap:.75rem;">
+            <input type="checkbox" id="newsletter-opt" style="width:16px;height:16px;" />
+            <label for="newsletter-opt" style="font-size:var(--fs-sm);cursor:pointer;">Subscribe to air quality tips &amp; offers</label>
+          </div>
+          <div style="display:flex;gap:.75rem;">
+            <button type="button" class="btn btn-ghost" id="signup-back"><i class="fas fa-arrow-left"></i> Back</button>
+            <button type="submit" class="btn btn-primary btn-lg" style="flex:1;">
+              Create Account <i class="fas fa-check"></i>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <p style="text-align:center;margin-top:1.5rem;font-size:var(--fs-sm);color:var(--text-muted);">
+        Already have an account? <a href="login.html" style="color:var(--cta);font-weight:600;">Sign in</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="js/main.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/connection-tester.js"></script>
+<script>
+  // Toggle concern chips
+  document.querySelectorAll('.signup-form-step .chip').forEach(chip => {
+    chip.addEventListener('click', () => chip.classList.toggle('active'));
+  });
+  document.getElementById('signup-back')?.addEventListener('click', () => {
+    document.getElementById('step-1').style.display = 'block';
+    document.getElementById('step-2').style.display = 'none';
+    document.getElementById('dot-1').classList.add('active');
+    document.getElementById('dot-2').classList.remove('active');
+  });
+  document.getElementById('signup-next')?.addEventListener('click', () => {
+    document.getElementById('dot-1').classList.remove('active');
+    document.getElementById('dot-2').classList.add('active');
+  });
+  
+  // Help text for debugging
+  console.log('%c💡 Tip: Open Console (F12) and type: runFullTest() to test API connection', 'color:#1abc9c;font-weight:bold;font-size:12px;');
+</script>
+</body>
+</html>

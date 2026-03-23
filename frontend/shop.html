@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Shop Verva – premium HEPA air purifiers for every room and budget." />
+  <title>Shop – Verva</title>
+  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+  <style>
+    /* Shop-specific enhancements */
+    .shop-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .filter-pills {
+      display: flex;
+      gap: .5rem;
+      flex-wrap: wrap;
+      flex: 1;
+    }
+    .filter-pill {
+      padding: .4rem 1rem;
+      border-radius: var(--r-pill);
+      border: 1.5px solid var(--glass-dark);
+      background: transparent;
+      font-size: var(--fs-sm);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .2s;
+      color: var(--text);
+    }
+    .filter-pill.active,
+    .filter-pill:hover {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+    .sort-select {
+      padding: .45rem 1.1rem;
+      border-radius: var(--r-pill);
+      border: 1.5px solid var(--glass-dark);
+      background: var(--white);
+      font-family: var(--font);
+      font-size: var(--fs-sm);
+      font-weight: 500;
+      color: var(--text);
+      cursor: pointer;
+      padding-right: 2.2rem;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23666' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right .8rem center;
+    }
+    .product-count {
+      font-size: var(--fs-sm);
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .price-badge {
+      position: absolute;
+      top: .75rem;
+      left: .75rem;
+      background: var(--cta);
+      color: #fff;
+      font-size: .7rem;
+      font-weight: 700;
+      padding: .2rem .55rem;
+      border-radius: var(--r-pill);
+      letter-spacing: .03em;
+    }
+    .new-badge {
+      background: var(--blue);
+    }
+    .bestseller-badge {
+      background: #F59E0B;
+      color: #fff;
+    }
+    .product-card { position: relative; }
+    .product-card-img { position: relative; overflow: hidden; }
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 5rem 2rem;
+      color: var(--text-muted);
+    }
+    .no-results i { font-size: 3rem; opacity: .2; display: block; margin-bottom: 1rem; }
+    .price-range-row {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      font-size: var(--fs-sm);
+    }
+    .price-range-row input[type=range] {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 4px;
+      background: linear-gradient(to right, var(--cta) 0%, var(--cta) 50%, var(--glass-dark) 50%);
+      border-radius: 2px;
+      width: 160px;
+      cursor: pointer;
+    }
+    .price-range-row input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      background: var(--cta);
+      border-radius: 50%;
+      border: 2px solid white;
+      box-shadow: 0 0 4px rgba(0,0,0,.2);
+    }
+    @media (max-width: 640px) {
+      .shop-toolbar { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<header id="site-header">
+  <a href="index.html" class="header-logo">VERVA<span class="dot">.</span></a>
+  <nav class="header-nav">
+    <a href="index.html">Home</a>
+    <a href="shop.html" class="active">Shop</a>
+    <a href="about.html">About</a>
+    <a href="support.html">Support</a>
+  </nav>
+  <div class="header-actions">
+    <button class="hdr-icon" id="search-btn" aria-label="Search"><i class="fas fa-magnifying-glass"></i></button>
+    <button id="theme-toggle" aria-label="Toggle theme"></button>
+    <a href="wishlist.html" class="hdr-icon" aria-label="Wishlist">
+      <i class="far fa-heart"></i>
+      <span class="badge wishlist-badge" style="display:none">0</span>
+    </a>
+    <button class="hdr-icon" id="cart-btn" aria-label="Cart">
+      <i class="fas fa-bag-shopping"></i>
+      <span class="badge cart-count-badge">0</span>
+    </button>
+    
+    <!-- Auth Buttons (Login/Signup) -->
+    <div id="auth-buttons" style="display:flex;gap:.5rem;align-items:center;">
+      <a href="login.html" class="btn btn-ghost btn-sm" id="login-btn" style="margin:0;">
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </a>
+      <a href="signup.html" class="btn btn-primary btn-sm" id="signup-btn" style="margin:0;">
+        <i class="fas fa-user-plus"></i> Sign Up
+      </a>
+    </div>
+    
+    <!-- User Avatar (shown when logged in) -->
+    <a href="account.html" class="hdr-icon" id="header-avatar-btn" aria-label="Account" style="display:none;">
+      <i class="fas fa-circle-user"></i>
+    </a>
+    
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="index.html">Home</a>
+  <a href="shop.html">Shop</a>
+  <a href="about.html">About</a>
+  <a href="support.html">Support</a>
+</nav>
+
+<!-- Shop hero strip -->
+<div class="shop-hero-strip">
+  <div>
+    <div class="section-label anim-fade">All Products</div>
+    <h1 class="anim-fade">Pure Air, <em>Every</em> Room</h1>
+    <p class="anim-fade" style="max-width:500px;">23 products across 6 categories — from ultra-compact portables to whole-home systems.</p>
+  </div>
+</div>
+
+<!-- Toolbar -->
+<div class="page-wrapper">
+  <div class="shop-toolbar anim-fade">
+    <!-- Filter pills -->
+    <div class="filter-pills" id="filter-pills">
+      <button class="filter-pill active" data-filter="all">All</button>
+      <button class="filter-pill" data-filter="bedroom">Bedroom</button>
+      <button class="filter-pill" data-filter="office">Office</button>
+      <button class="filter-pill" data-filter="large">Large Room</button>
+      <button class="filter-pill" data-filter="portable">Portable</button>
+      <button class="filter-pill" data-filter="accessories">Accessories</button>
+    </div>
+
+    <!-- Price range -->
+    <div class="price-range-row">
+      <span>Up to <strong id="price-label">₹80K</strong></span>
+      <input type="range" id="price-range" min="5000" max="80000" step="1000" value="80000" />
+    </div>
+
+    <!-- Sort -->
+    <select class="sort-select" id="sort-select">
+      <option value="featured">Featured</option>
+      <option value="price-asc">Price: Low → High</option>
+      <option value="price-desc">Price: High → Low</option>
+      <option value="rating-desc">Top Rated</option>
+      <option value="name-asc">Name A→Z</option>
+      <option value="newest">Newest First</option>
+    </select>
+
+    <span class="product-count" id="product-count">23 products</span>
+  </div>
+
+  <!-- Product grid -->
+  <div class="grid-4 anim-fade" id="product-grid">
+    <!-- Populated by JavaScript -->
+  </div>
+</div>
+
+<!-- Mini cart -->
+<aside id="mini-cart" role="dialog">
+  <div class="mini-cart-header">
+    <h3>Cart <span id="mini-cart-count">(0 items)</span></h3>
+    <button class="hdr-icon" id="cart-close"><i class="fas fa-xmark"></i></button>
+  </div>
+  <div class="mini-cart-body" id="mini-cart-body"></div>
+  <div class="mini-cart-footer">
+    <div class="cart-summary-row"><span>Total</span><span id="mini-cart-total">₹0</span></div>
+    <a href="checkout.html" class="btn btn-primary btn-block mb-2">Checkout</a>
+    <a href="cart.html" class="btn btn-ghost btn-block">View Cart</a>
+  </div>
+</aside>
+<div class="cart-overlay" id="cart-overlay"></div>
+
+<!-- Search overlay -->
+<div id="search-overlay">
+  <button id="search-close" class="search-close"><i class="fas fa-xmark"></i></button>
+  <div class="search-input-wrap">
+    <input type="search" id="search-input" placeholder="Search products…" autocomplete="off" />
+    <i class="fas fa-magnifying-glass"></i>
+  </div>
+  <div id="search-results" style="margin-top:1.5rem;display:flex;flex-direction:column;gap:.75rem;max-width:500px;margin-inline:auto;"></div>
+</div>
+
+<div id="toast-container"></div>
+
+<footer id="site-footer" style="margin-top:5rem;">
+  <div class="footer-inner">
+    <div class="footer-cols">
+      <div>
+        <div class="footer-logo">VERVA<span class="dot">.</span></div>
+        <p class="footer-tagline">Premium air purification, designed for life.</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <a href="shop.html?filter=bedroom">Bedroom</a>
+        <a href="shop.html?filter=office">Office</a>
+        <a href="shop.html?filter=large">Large Room</a>
+        <a href="shop.html?filter=accessories">Accessories</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="about.html">About</a>
+        <a href="support.html">Support</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 Verva Technologies Pvt. Ltd.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/product.js"></script>
+<script>
+/* ============================================================
+   PRODUCT CATALOG — 23 products
+   ============================================================ */
+const PRODUCTS = [
+  // ── Bedroom ──────────────────────────────────────────────
+  {
+    id: '1', name: 'Verva Bedroom', category: 'bedroom',
+    price: 24999, oldPrice: 31999,
+    image: 'assets/img/bedroom_purifier.png',
+    rating: 4.9, reviews: 3421,
+    badge: 'bestseller', coverage: '30m²',
+    tag: 'HEPA H13 · Whisper 28dB',
+    featured: true, isNew: false, addedAt: 1
+  },
+  {
+    id: '6', name: 'Verva Sleep Pro', category: 'bedroom',
+    price: 29999, oldPrice: 37999,
+    image: 'assets/img/bedroom_purifier.png',
+    rating: 4.8, reviews: 1842,
+    badge: null, coverage: '40m²',
+    tag: 'Sleep Mode · Night Light',
+    featured: true, isNew: false, addedAt: 6
+  },
+  {
+    id: '7', name: 'Verva Nursery', category: 'bedroom',
+    price: 18999, oldPrice: null,
+    image: 'assets/img/bedroom_purifier.png',
+    rating: 4.9, reviews: 987,
+    badge: 'new', coverage: '20m²',
+    tag: 'Baby-safe · 24dB Ultra-quiet',
+    featured: false, isNew: true, addedAt: 12
+  },
+  {
+    id: '8', name: 'Verva Allergy Shield', category: 'bedroom',
+    price: 34999, oldPrice: 42999,
+    image: 'assets/img/bedroom_purifier.png',
+    rating: 4.7, reviews: 2105,
+    badge: null, coverage: '45m²',
+    tag: 'Pollen · Dust · Pet Dander',
+    featured: false, isNew: false, addedAt: 4
+  },
+
+  // ── Office ───────────────────────────────────────────────
+  {
+    id: '2', name: 'Verva Office', category: 'office',
+    price: 34999, oldPrice: 44999,
+    image: 'assets/img/office_purifier.png',
+    rating: 4.8, reviews: 2876,
+    badge: 'sale', coverage: '50m²',
+    tag: 'Smart Sensors · App Control',
+    featured: true, isNew: false, addedAt: 2
+  },
+  {
+    id: '9', name: 'Verva Desk Mini', category: 'office',
+    price: 9999, oldPrice: null,
+    image: 'assets/img/office_purifier.png',
+    rating: 4.6, reviews: 1543,
+    badge: null, coverage: '10m²',
+    tag: 'Desk-size · USB-C Power',
+    featured: false, isNew: true, addedAt: 13
+  },
+  {
+    id: '10', name: 'Verva Studio', category: 'office',
+    price: 22999, oldPrice: 27999,
+    image: 'assets/img/office_purifier.png',
+    rating: 4.7, reviews: 889,
+    badge: null, coverage: '35m²',
+    tag: 'Minimal Design · Low Noise',
+    featured: false, isNew: false, addedAt: 7
+  },
+  {
+    id: '11', name: 'Verva Conference', category: 'office',
+    price: 44999, oldPrice: 54999,
+    image: 'assets/img/office_purifier.png',
+    rating: 4.8, reviews: 456,
+    badge: null, coverage: '70m²',
+    tag: 'Large Office · VOC Sensor',
+    featured: false, isNew: false, addedAt: 8
+  },
+
+  // ── Large Room ───────────────────────────────────────────
+  {
+    id: '3', name: 'Verva Pro', category: 'large',
+    price: 49999, oldPrice: 64999,
+    image: 'assets/img/pro_purifier.png',
+    rating: 4.9, reviews: 2108,
+    badge: 'sale', coverage: '80m²',
+    tag: '4× Air Change/hr · CADR 480',
+    featured: true, isNew: false, addedAt: 3
+  },
+  {
+    id: '5', name: 'Verva Max', category: 'large',
+    price: 64999, oldPrice: 79999,
+    image: 'assets/img/lifestyle_section.png',
+    rating: 4.8, reviews: 1298,
+    badge: null, coverage: '120m²',
+    tag: 'Whole-home · Dual Motor',
+    featured: true, isNew: false, addedAt: 5
+  },
+  {
+    id: '12', name: 'Verva Elite 120', category: 'large',
+    price: 74999, oldPrice: null,
+    image: 'assets/img/pro_purifier.png',
+    rating: 4.9, reviews: 543,
+    badge: 'new', coverage: '120m²',
+    tag: 'Medical-grade H14 · UV-C',
+    featured: false, isNew: true, addedAt: 14
+  },
+  {
+    id: '13', name: 'Verva Tower', category: 'large',
+    price: 54999, oldPrice: 67999,
+    image: 'assets/img/pro_purifier.png',
+    rating: 4.7, reviews: 732,
+    badge: null, coverage: '90m²',
+    tag: '360° Intake · Tower Design',
+    featured: false, isNew: false, addedAt: 9
+  },
+  {
+    id: '14', name: 'Verva Home Plus', category: 'large',
+    price: 39999, oldPrice: 49999,
+    image: 'assets/img/lifestyle_section.png',
+    rating: 4.8, reviews: 1640,
+    badge: null, coverage: '65m²',
+    tag: 'Wi-Fi + Alexa + Google Home',
+    featured: false, isNew: false, addedAt: 10
+  },
+  {
+    id: '15', name: 'Verva Dual Zone', category: 'large',
+    price: 59999, oldPrice: 72999,
+    image: 'assets/img/pro_purifier.png',
+    rating: 4.7, reviews: 389,
+    badge: null, coverage: '100m²',
+    tag: 'Split-room Coverage',
+    featured: false, isNew: false, addedAt: 11
+  },
+
+  // ── Portable ─────────────────────────────────────────────
+  {
+    id: '4', name: 'Verva Mini', category: 'portable',
+    price: 14999, oldPrice: null,
+    image: 'assets/img/hero_purifier.png',
+    rating: 4.7, reviews: 4210,
+    badge: 'bestseller', coverage: '20m²',
+    tag: 'Portable · USB-C · 800g',
+    featured: true, isNew: false, addedAt: 5
+  },
+  {
+    id: '16', name: 'Verva Nano', category: 'portable',
+    price: 7999, oldPrice: null,
+    image: 'assets/img/hero_purifier.png',
+    rating: 4.6, reviews: 3102,
+    badge: null, coverage: '12m²',
+    tag: 'Pocket-size · 450g',
+    featured: false, isNew: false, addedAt: 15
+  },
+  {
+    id: '17', name: 'Verva Car', category: 'portable',
+    price: 5999, oldPrice: 7499,
+    image: 'assets/img/hero_purifier.png',
+    rating: 4.5, reviews: 2876,
+    badge: null, coverage: 'Car',
+    tag: '12V Socket · Cabin Purifier',
+    featured: false, isNew: false, addedAt: 16
+  },
+  {
+    id: '18', name: 'Verva Travel Pro', category: 'portable',
+    price: 11999, oldPrice: null,
+    image: 'assets/img/hero_purifier.png',
+    rating: 4.7, reviews: 1203,
+    badge: 'new', coverage: '18m²',
+    tag: 'Foldable · 12hr Battery',
+    featured: false, isNew: true, addedAt: 17
+  },
+
+  // ── Accessories ──────────────────────────────────────────
+  {
+    id: 'f1', name: 'HEPA Filter Pack', category: 'accessories',
+    price: 4999, oldPrice: 6299,
+    image: 'assets/img/hero_purifier.png',
+    rating: 4.9, reviews: 8921,
+    badge: 'sale', coverage: '—',
+    tag: '3-Pack · All Verva Models',
+    featured: false, isNew: false, addedAt: 18
+  },
+  {
+    id: 'f2', name: 'Carbon Pre-Filter', category: 'accessories',
+    price: 1999, oldPrice: null,
+    image: 'assets/img/hero_purifier.png',
+    rating: 4.8, reviews: 4320,
+    badge: null, coverage: '—',
+    tag: '6-Pack · Odour Elimination',
+    featured: false, isNew: false, addedAt: 19
+  },
+  {
+    id: 'f3', name: 'Smart Air Monitor', category: 'accessories',
+    price: 7999, oldPrice: 9999,
+    image: 'assets/img/office_purifier.png',
+    rating: 4.7, reviews: 2109,
+    badge: null, coverage: '—',
+    tag: 'PM2.5 · CO₂ · VOC · Humidity',
+    featured: false, isNew: false, addedAt: 20
+  },
+  {
+    id: 'f4', name: 'Verva Stand (Pro)', category: 'accessories',
+    price: 2999, oldPrice: null,
+    image: 'assets/img/pro_purifier.png',
+    rating: 4.6, reviews: 876,
+    badge: null, coverage: '—',
+    tag: 'Steel · Height-adjustable',
+    featured: false, isNew: false, addedAt: 21
+  },
+  {
+    id: 'f5', name: 'Annual Filter Plan', category: 'accessories',
+    price: 8999, oldPrice: 12000,
+    image: 'assets/img/hero_purifier.png',
+    rating: 4.9, reviews: 3456,
+    badge: 'sale', coverage: '—',
+    tag: '12-month · Auto-delivery',
+    featured: false, isNew: false, addedAt: 22
+  },
+];
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let activeFilter = 'all';
+let activeSort   = 'featured';
+let maxPrice     = 80000;
+
+/* ============================================================
+   RENDER
+   ============================================================ */
+function renderProducts() {
+  const grid = document.getElementById('product-grid');
+  if (!grid) return;
+
+  // 1. Filter
+  let list = PRODUCTS.filter(p => {
+    const catOk   = activeFilter === 'all' || p.category === activeFilter;
+    const priceOk = p.price <= maxPrice;
+    return catOk && priceOk;
+  });
+
+  // 2. Sort
+  list = [...list]; // copy
+  switch (activeSort) {
+    case 'price-asc':    list.sort((a,b) => a.price - b.price);            break;
+    case 'price-desc':   list.sort((a,b) => b.price - a.price);            break;
+    case 'rating-desc':  list.sort((a,b) => b.rating - a.rating);          break;
+    case 'name-asc':     list.sort((a,b) => a.name.localeCompare(b.name)); break;
+    case 'newest':       list.sort((a,b) => b.addedAt - a.addedAt);        break;
+    case 'featured':
+    default:
+      list.sort((a,b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));    break;
+  }
+
+  // 3. Update count
+  document.getElementById('product-count').textContent =
+    `${list.length} product${list.length !== 1 ? 's' : ''}`;
+
+  // 4. Render
+  if (list.length === 0) {
+    grid.innerHTML = `
+      <div class="no-results">
+        <i class="fas fa-wind"></i>
+        <h3>No products found</h3>
+        <p>Try adjusting the filters or price range.</p>
+        <button class="btn btn-ghost" onclick="resetFilters()">Reset Filters</button>
+      </div>`;
+    return;
+  }
+
+  const badgeMap = {
+    sale:       { cls: 'price-badge',            label: 'SALE' },
+    bestseller: { cls: 'price-badge bestseller-badge', label: 'BEST SELLER' },
+    new:        { cls: 'price-badge new-badge',  label: 'NEW' },
+  };
+
+  grid.innerHTML = list.map(p => {
+    const b = badgeMap[p.badge] || null;
+    const discount = p.oldPrice
+      ? `<span class="product-price-old">₹${p.oldPrice.toLocaleString('en-IN')}</span>`
+      : '';
+    const savePct = p.oldPrice
+      ? ` <span style="font-size:.75rem;color:var(--success);font-weight:700;">
+           −${Math.round((1 - p.price/p.oldPrice)*100)}%
+         </span>`
+      : '';
+    const wishlisted = window.VERVAProd?.isWishlisted(p.id);
+
+    return `
+    <div class="product-card anim-fade" data-product-id="${p.id}">
+      <div class="product-card-img">
+        ${b ? `<span class="${b.cls}">${b.label}</span>` : ''}
+        <img src="${p.image}" alt="${p.name}" loading="lazy" />
+        <div class="product-card-overlay">
+          <button class="btn btn-primary btn-sm" data-add-cart
+            data-id="${p.id}" data-name="${p.name}" data-price="${p.price}"
+            data-image="${p.image}" data-variant="${p.category}">
+            <i class="fas fa-bag-shopping"></i> Add to Cart
+          </button>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-meta">
+          <div class="product-card-name">${p.name}</div>
+          <button class="hdr-icon" style="width:32px;height:32px;font-size:.9rem;flex-shrink:0;"
+            data-wishlist="${p.id}" data-name="${p.name}" aria-label="Wishlist">
+            <i class="${wishlisted ? 'fas' : 'far'} fa-heart" style="color:${wishlisted ? 'var(--cta)' : ''}"></i>
+          </button>
+        </div>
+        <div style="font-size:.75rem;color:var(--text-muted);margin-bottom:.4rem;">${p.tag}</div>
+        <div class="product-card-meta" style="align-items:center;">
+          <div class="stars product-stars">
+            <i class="fas fa-star"></i> ${p.rating}
+            <span style="color:var(--text-light);font-size:.7rem;margin-left:.2rem;">(${p.reviews.toLocaleString('en-IN')})</span>
+          </div>
+          ${p.category !== 'accessories' ? `<span class="chip" style="font-size:.7rem;padding:.15rem .6rem;">${p.coverage}</span>` : ''}
+        </div>
+        <div class="product-card-meta" style="align-items:center;margin-top:.6rem;">
+          <div style="display:flex;align-items:baseline;gap:.4rem;">
+            <div class="product-price">₹${p.price.toLocaleString('en-IN')}</div>
+            ${discount}${savePct}
+          </div>
+        </div>
+        <button class="btn btn-primary btn-block mt-3" data-add-cart
+          data-id="${p.id}" data-name="${p.name}" data-price="${p.price}"
+          data-image="${p.image}" data-variant="${p.category}">
+          Add to Cart
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Re-init intersection observer for new cards
+  if (window.initScrollAnimations) {
+    window.initScrollAnimations(grid);
+  }
+}
+
+function resetFilters() {
+  activeFilter = 'all';
+  activeSort   = 'featured';
+  maxPrice     = 80000;
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.toggle('active', p.dataset.filter === 'all'));
+  document.getElementById('sort-select').value = 'featured';
+  document.getElementById('price-range').value = 80000;
+  document.getElementById('price-label').textContent = '₹80K';
+  updatePriceSlider(80000);
+  renderProducts();
+}
+window.resetFilters = resetFilters;
+
+/* ============================================================
+   FILTER + SORT event listeners
+   ============================================================ */
+
+// Filter pills
+document.getElementById('filter-pills').addEventListener('click', e => {
+  const pill = e.target.closest('.filter-pill');
+  if (!pill) return;
+  document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+  pill.classList.add('active');
+  activeFilter = pill.dataset.filter;
+  renderProducts();
+});
+
+// Sort
+document.getElementById('sort-select').addEventListener('change', e => {
+  activeSort = e.target.value;
+  renderProducts();
+});
+
+// Price range
+function updatePriceSlider(val) {
+  const pct = ((val - 5000) / (80000 - 5000)) * 100;
+  document.getElementById('price-range').style.background =
+    `linear-gradient(to right, var(--cta) 0%, var(--cta) ${pct}%, var(--glass-dark) ${pct}%, var(--glass-dark) 100%)`;
+}
+document.getElementById('price-range').addEventListener('input', e => {
+  const val = parseInt(e.target.value);
+  maxPrice = val;
+  const label = val >= 80000 ? '₹80K+' : `₹${(val/1000).toFixed(0)}K`;
+  document.getElementById('price-label').textContent = label;
+  updatePriceSlider(val);
+  renderProducts();
+});
+updatePriceSlider(80000);
+
+/* ============================================================
+   Search overlay
+   ============================================================ */
+document.getElementById('search-input')?.addEventListener('input', function() {
+  const q = this.value.toLowerCase().trim();
+  const container = document.getElementById('search-results');
+  if (!q) { container.innerHTML = ''; return; }
+  const matches = PRODUCTS.filter(p =>
+    p.name.toLowerCase().includes(q) || p.tag.toLowerCase().includes(q) || p.category.includes(q)
+  ).slice(0, 6);
+  if (!matches.length) {
+    container.innerHTML = `<p style="text-align:center;color:rgba(255,255,255,.5);">No products found</p>`;
+    return;
+  }
+  container.innerHTML = matches.map(p => `
+    <div style="display:flex;align-items:center;gap:1rem;padding:1rem;background:rgba(255,255,255,.07);border-radius:var(--r);cursor:pointer;"
+         onclick="document.getElementById('search-overlay').classList.remove('active');
+                  document.getElementById('filter-pills').querySelector('[data-filter=${p.category}]')?.click();">
+      <img src="${p.image}" alt="${p.name}" style="width:48px;height:48px;object-fit:cover;border-radius:var(--r);">
+      <div>
+        <div style="font-weight:600;color:#fff;">${p.name}</div>
+        <div style="font-size:.78rem;color:rgba(255,255,255,.5);">₹${p.price.toLocaleString('en-IN')} · ${p.tag}</div>
+      </div>
+      <div style="margin-left:auto;">
+        <button class="btn btn-primary btn-sm" data-add-cart
+          data-id="${p.id}" data-name="${p.name}" data-price="${p.price}"
+          data-image="${p.image}" data-variant="${p.category}"
+          onclick="event.stopPropagation();">
+          Add
+        </button>
+      </div>
+    </div>
+  `).join('');
+});
+
+// URL filter (e.g. from footer links)
+const urlFilter = new URLSearchParams(window.location.search).get('filter');
+if (urlFilter) {
+  const pill = document.querySelector(`.filter-pill[data-filter="${urlFilter}"]`);
+  if (pill) { pill.click(); }
+}
+
+/* Initial render */
+renderProducts();
+</script>
+</body>
+</html>

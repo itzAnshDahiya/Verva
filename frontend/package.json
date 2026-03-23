@@ -1,0 +1,38 @@
+﻿{
+  "name": "VERVA-ecommerce",
+  "version": "1.0.0",
+  "description": "VERVA – Premium Air Purifier E-Commerce Platform (Full-Stack)",
+  "type": "module",
+  "scripts": {
+    "dev": "live-server --port=5500 --open=/index.html",
+    "start": "live-server --port=5500",
+    "frontend": "live-server --port=5500",
+    "backend": "cd ../backend && npm run dev",
+    "dev:all": "concurrently \"npm run frontend\" \"npm run backend\"",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "seed": "cd ../backend && npm run seed"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.5.2"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "concurrently": "^8.2.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "keywords": [
+    "e-commerce",
+    "air-purifier",
+    "nodejs",
+    "express",
+    "mongodb",
+    "full-stack"
+  ],
+  "author": "VERVA Team",
+  "license": "MIT"
+}
