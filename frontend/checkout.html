@@ -19,7 +19,7 @@
 <header id="site-header">
   <a href="index.html" class="header-logo">VERVA<span class="dot">.</span></a>
   <div class="header-actions">
-    <button id="theme-toggle"></button>
+    <button id="theme-toggle" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
     <a href="cart.html" class="btn btn-ghost btn-sm"><i class="fas fa-arrow-left"></i> Back to Cart</a>
   </div>
 </header>
@@ -152,9 +152,10 @@
   <div class="order-summary-card anim-right">
     <h3>Order Summary</h3>
     <div id="checkout-items" style="margin-bottom:1rem;font-size:var(--fs-sm);display:flex;flex-direction:column;gap:.5rem;"></div>
-    <div class="summary-row"><span>Subtotal</span><span id="co-subtotal">₹0</span></div>
-    <div class="summary-row"><span>Shipping</span><span style="color:var(--success);">Free</span></div>
-    <div class="summary-total"><span>Total</span><span id="co-total">₹0</span></div>
+    <div class="cart-summary-row mt-2"><span>Subtotal</span><span id="co-subtotal">₹0</span></div>
+    <div class="cart-summary-row"><span>GST (18%)</span><span id="co-gst">₹0</span></div>
+    <div class="cart-summary-row"><span>Shipping</span><span style="color:var(--success)">Free</span></div>
+    <div class="cart-total-row"><span>Total</span><span id="co-total">₹0</span></div>
     <div class="footer-trust" style="margin-top:1rem;justify-content:center;flex-wrap:wrap;">
       <span class="trust-badge"><i class="fas fa-shield-halved"></i> SSL Secure</span>
       <span class="trust-badge"><i class="fas fa-award"></i> PCI Compliant</span>
@@ -164,6 +165,7 @@
 
 <div id="toast-container"></div>
 
+<script src="js/api.js"></script>
 <script src="js/main.js"></script>
 <script src="js/cart.js"></script>
 <script>
