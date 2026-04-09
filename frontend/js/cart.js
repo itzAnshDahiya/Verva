@@ -61,6 +61,9 @@ function updateQty(id, variant, delta) {
 function cartTotal() {
   return cart.reduce((sum, i) => sum + i.price * i.qty, 0);
 }
+function cartGst() {
+  return Math.round(cartTotal() * 0.18);
+}
 function cartCount() {
   return cart.reduce((sum, i) => sum + i.qty, 0);
 }
@@ -126,7 +129,7 @@ function refreshCartPageSummary() {
   if (!subtotalEl) return;   // not on cart page
 
   const sub = cartTotal();
-  const gst = Math.round(sub * 0.18);
+  const gst = cartGst();
   countEl   && (countEl.textContent   = `${cartCount()} item${cartCount() !== 1 ? 's' : ''}`);
   subtotalEl && (subtotalEl.textContent = fmt(sub));
   gstEl      && (gstEl.textContent      = fmt(gst));
@@ -196,19 +199,30 @@ document.addEventListener('click', e => {
 function renderCheckoutSummary() {
   const itemsEl = document.getElementById('checkout-items');
   const subEl   = document.getElementById('co-subtotal');
+  const gstEl   = document.getElementById('co-gst');
   const totEl   = document.getElementById('co-total');
   if (!itemsEl) return;
 
-  itemsEl.innerHTML = cart.map(i =>
+  const itemsHtml = cart.map(i =>
     `<div class="flex gap-1" style="margin-bottom:.4rem;">
        <span style="flex:1;font-size:var(--fs-sm);">${i.name} ×${i.qty}</span>
        <span style="font-size:var(--fs-sm);font-weight:600;">${fmt(i.price * i.qty)}</span>
      </div>`
-  ).join('') || '<p style="font-size:var(--fs-sm);color:var(--text-muted);">No items</p>';
+  ).join('');
+  
+  itemsEl.innerHTML = itemsHtml || '<p style="font-size:var(--fs-sm);color:var(--text-muted);">No items</p>';
 
   const sub = cartTotal();
+  const gst = cartGst();
+  const total = sub + gst;
+
   subEl && (subEl.textContent = fmt(sub));
-  totEl && (totEl.textContent = fmt(sub));
+  gstEl && (gstEl.textContent = fmt(gst));
+  totEl && (totEl.textContent = fmt(total));
+  
+  // Also update review items if they exist
+  const reviewEl = document.getElementById('review-items');
+  if (reviewEl) reviewEl.innerHTML = itemsHtml;
 }
 
 /* ---- Public API ---- */
@@ -221,7 +235,31 @@ window.Cart = {
   renderPage:    renderCartPage,
   getCart:       () => cart,
   total:         cartTotal,
+  gst:           cartGst,
   count:         cartCount,
+  syncWithServer: async () => {
+    if (!window.API?.isLoggedIn()) return;
+    try {
+      const response = await window.API.Cart.getCart();
+      if (response.success && response.data.items) {
+        // Simple merge: server items replace local if conflict, but server is truth
+        cart = response.data.items.map(item => ({
+          id: item.productId?._id || item.productId,
+          name: item.productId?.name || 'Product',
+          price: item.productId?.price || item.price,
+          image: item.productId?.mainImage || item.image || 'assets/img/hero_purifier.png',
+          variant: item.variant || 'Standard',
+          qty: item.quantity
+        }));
+        saveCart(cart);
+        renderMiniCart();
+        updateCartBadge();
+        refreshCartPageSummary();
+        renderCartPage();
+        renderCheckoutSummary();
+      }
+    } catch (e) { console.warn('Cart sync failed', e); }
+  }
 };
 
 /* ---- Init ---- */

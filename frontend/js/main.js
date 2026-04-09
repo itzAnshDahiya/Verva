@@ -20,6 +20,11 @@ function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   localStorage.setItem('VERVA-theme', theme);
   STATE.theme = theme;
+  
+  const icon = $('#theme-toggle i');
+  if (icon) {
+    icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+  }
 }
 function toggleTheme() {
   applyTheme(STATE.theme === 'light' ? 'dark' : 'light');

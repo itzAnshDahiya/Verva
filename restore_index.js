@@ -1,0 +1,623 @@
+const fs = require('fs');
+const content = `<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="VERVA – Premium air purifiers engineered for cleaner, healthier living. HEPA H13 filtration, ultra-silent 42dB operation, smart sensors." />
+  <title>VERVA – Breathe Pure</title>
+
+  <!-- Local Font Awesome -->
+  <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/pages.css" />
+</head>
+<body>
+
+<!-- ======================================================
+     HEADER
+     ====================================================== -->
+<header id="site-header">
+  <a href="index.html" class="header-logo">VERVA<span class="dot">.</span></a>
+
+  <nav class="header-nav">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="about.html">About</a>  
+    <a href="support.html">Support</a>
+  </nav>
+
+  <div class="header-actions">
+    <button class="hdr-icon" id="search-btn" aria-label="Search"><i class="fas fa-magnifying-glass"></i></button>
+    <button id="theme-toggle" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+    <a href="wishlist.html" class="hdr-icon" aria-label="Wishlist">
+      <i class="far fa-heart"></i>
+      <span class="badge wishlist-badge" style="display:none">0</span>
+    </a>
+    <button class="hdr-icon" id="cart-btn" aria-label="Cart">
+      <i class="fas fa-bag-shopping"></i>
+      <span class="badge cart-count-badge">0</span>
+    </button>
+    
+    <!-- Auth Buttons (Login/Signup) -->
+    <div id="auth-buttons" style="display:flex;gap:.5rem;align-items:center;">
+      <a href="login.html" class="btn btn-ghost btn-sm" id="login-btn" style="margin:0;">
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </a>
+      <a href="signup.html" class="btn btn-primary btn-sm" id="signup-btn" style="margin:0;">
+        <i class="fas fa-user-plus"></i> Sign Up
+      </a>
+    </div>
+    
+    <!-- User Avatar (shown when logged in) -->
+    <a href="account.html" class="hdr-icon" id="header-avatar-btn" aria-label="Account" style="display:none;">
+      <i class="fas fa-circle-user"></i>
+    </a>
+    
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<nav class="mobile-nav" id="mobile-nav">
+  <a href="index.html">Home</a>
+  <a href="shop.html">Shop</a>
+  <a href="about.html">About</a>
+  <a href="support.html">Support</a>
+  <a href="account.html">Account</a>
+  <a href="wishlist.html">Wishlist</a>
+  <a href="cart.html">Cart</a>
+</nav>
+
+<!-- ======================================================
+     HERO
+     ====================================================== -->
+<section class="home-hero page-wrapper">
+  <div class="hero-bg-word" aria-hidden="true">VERVA</div>
+
+  <div class="hero-content anim-left">
+    <div class="hero-eyebrow">
+      <span class="dot"></span>
+      Premium Air Purification
+    </div>
+    <h1 class="hero-title">
+      Breathe <em>Pure.</em><br>Live Better.
+    </h1>
+    <p class="hero-desc">
+      Advanced HEPA H13 filtration with smart sensors and ultra-quiet 42dB operation.
+      Transform any space in minutes — designed for life.
+    </p>
+    <div class="hero-ctas">
+      <a href="shop.html" class="btn btn-primary btn-lg magnetic">
+        <i class="fas fa-bag-shopping"></i> Shop Now
+      </a>
+      <button class="btn btn-secondary btn-lg" id="demo-btn">
+        <i class="fas fa-play"></i> Watch Demo
+      </button>
+    </div>
+    <div class="hero-review-cluster">
+      <div class="review-avatars">
+        <span>AK</span><span>PJ</span><span>SR</span><span>+</span>
+      </div>
+      <div class="review-text">
+        <div class="stars" style="margin-bottom:2px;">
+          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          <i class="fas fa-star"></i><i class="fas fa-star-half-stroke"></i>
+        </div>
+        <strong>12,400+ Reviews</strong>
+        <span>Trusted by homes across India</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual anim-right">
+    <div class="hero-product-wrap">
+      <img class="hero-product-img" src="assets/img/hero_purifier.png" alt="VERVA Air Purifier" />
+      <div class="hero-float-chips" aria-hidden="true">
+        <span class="float-chip"><i class="fas fa-wind"></i> Ultra-Clean Filtration</span>
+        <span class="float-chip"><i class="fas fa-volume-off"></i> 42 dB Silent</span>
+        <span class="float-chip"><i class="fas fa-bolt"></i> 35W Smart Energy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     LIFESTYLE SECTION
+     ====================================================== -->
+<section>
+  <div class="section-label">Our Story</div>
+  <div class="lifestyle-grid">
+    <div class="lifestyle-text-card anim-left">
+      <div>
+        <h2>Cleaner Living<br>Environment</h2>
+        <p>Transforming the air you breathe, one room at a time. VERVA's smart purification adapts to your life, silently working to keep every breath fresh, clean, and energising.</p>
+        <a href="about.html" class="btn btn-dark mt-4">Learn More <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <span class="big-label" aria-hidden="true">VERVA</span>
+    </div>
+    <div class="lifestyle-photo-card anim-right">
+      <img src="assets/img/lifestyle_section.png" alt="Cleaner living environment with VERVA" loading="lazy" />
+      <div class="zoom-icon" aria-hidden="true"><i class="fas fa-magnifying-glass-plus"></i></div>
+      <div style="position:absolute;bottom:1.5rem;right:1.5rem;background:rgba(255,255,255,0.9);backdrop-filter:blur(10px);padding:.5rem 1rem;border-radius:999px;font-size:.75rem;font-weight:700;">
+        <i class="fas fa-leaf" style="margin-right:.3rem;color:var(--success)"></i> Eco Score: A+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     FEATURED CATEGORIES
+     ====================================================== -->
+<section>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2.5rem;" class="anim-fade">
+    <div>
+      <div class="section-label">Collections</div>
+      <h2>Shop by Space</h2>
+    </div>
+    <a href="shop.html" class="btn btn-ghost">View All <i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div class="category-scroll-wrap anim-fade">
+    <div class="category-scroll">
+      <div class="category-card">
+        <img src="assets/img/bedroom_purifier.png" alt="For Bedrooms" loading="lazy" />
+        <div class="category-card-overlay">
+          <h3>For Bedrooms</h3>
+          <span>From ₹24,999</span>
+        </div>
+      </div>
+      <div class="category-card">
+        <img src="assets/img/office_purifier.png" alt="For Workspaces" loading="lazy" />
+        <div class="category-card-overlay">
+          <h3>For Workspaces</h3>
+          <span>From ₹34,999</span>
+        </div>
+      </div>
+      <div class="category-card">
+        <img src="assets/img/pro_purifier.png" alt="For Living Rooms" loading="lazy" />
+        <div class="category-card-overlay">
+          <h3>For Living Rooms</h3>
+          <span>From ₹49,999</span>
+        </div>
+      </div>
+      <div class="category-card">
+        <img src="assets/img/hero_purifier.png" alt="Pro Series" loading="lazy" />
+        <div class="category-card-overlay">
+          <h3>Pro Series</h3>
+          <span>From ₹64,999</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     FEATURED PRODUCTS
+     ====================================================== -->
+<section id="featured">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2.5rem;" class="anim-fade">
+    <div>
+      <div class="section-label">Top Picks</div>
+      <h2>Featured Collection</h2>
+    </div>
+    <a href="shop.html" class="btn btn-ghost">All Products <i class="fas fa-arrow-right"></i></a>
+  </div>
+  <div class="grid-3 anim-fade">
+
+    <!-- Product 1 -->
+    <div class="product-card magnetic">
+      <span class="product-badge badge-bestseller">Bestseller</span>
+      <div class="product-card-img">
+        <img src="assets/img/bedroom_purifier.png" alt="VERVA Bedroom" loading="lazy" />
+        <div class="product-card-overlay">
+          <a href="product.html?id=1" class="btn btn-secondary btn-sm">Quick View</a>
+          <button class="btn btn-primary btn-sm"
+            data-add-cart
+            data-id="1" data-name="VERVA Bedroom" data-price="24999"
+            data-image="assets/img/bedroom_purifier.png" data-variant="Standard">
+            <i class="fas fa-plus"></i> Add
+          </button>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-meta">
+          <div class="product-card-name">VERVA Bedroom</div>
+          <button class="hdr-icon" style="width:32px;height:32px;font-size:.85rem;" data-wishlist="1" data-name="VERVA Bedroom" aria-label="Wishlist">
+            <i class="far fa-heart"></i>
+          </button>
+        </div>
+        <div class="product-card-meta">
+          <div class="product-price">₹24,999</div>
+          <div class="product-stars"><i class="fas fa-star"></i> 4.9 <span class="stars-label">(1,240)</span></div>
+        </div>
+        <div class="product-tags">
+          <span class="chip">Up to 25m²</span>
+          <span class="chip">Sleep Mode</span>
+        </div>
+        <button class="btn btn-primary btn-block mt-3"
+          data-add-cart
+          data-id="1" data-name="VERVA Bedroom" data-price="24999"
+          data-image="assets/img/bedroom_purifier.png" data-variant="Standard">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="product-card magnetic">
+      <span class="product-badge badge-new">New</span>
+      <div class="product-card-img">
+        <img src="assets/img/office_purifier.png" alt="VERVA Office" loading="lazy" />
+        <div class="product-card-overlay">
+          <a href="product.html?id=2" class="btn btn-secondary btn-sm">Quick View</a>
+          <button class="btn btn-primary btn-sm"
+            data-add-cart
+            data-id="2" data-name="VERVA Office" data-price="34999"
+            data-image="assets/img/office_purifier.png" data-variant="Standard">
+            <i class="fas fa-plus"></i> Add
+          </button>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-meta">
+          <div class="product-card-name">VERVA Office</div>
+          <button class="hdr-icon" style="width:32px;height:32px;font-size:.85rem;" data-wishlist="2" data-name="VERVA Office" aria-label="Wishlist">
+            <i class="far fa-heart"></i>
+          </button>
+        </div>
+        <div class="product-card-meta">
+          <div class="product-price">₹34,999</div>
+          <div class="product-stars"><i class="fas fa-star"></i> 4.8 <span class="stars-label">(986)</span></div>
+        </div>
+        <div class="product-tags">
+          <span class="chip">Up to 50m²</span>
+          <span class="chip">Smart Sensor</span>
+        </div>
+        <button class="btn btn-primary btn-block mt-3"
+          data-add-cart
+          data-id="2" data-name="VERVA Office" data-price="34999"
+          data-image="assets/img/office_purifier.png" data-variant="Standard">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+
+    <!-- Product 3 -->
+    <div class="product-card magnetic">
+      <span class="product-badge badge-limited">Limited</span>
+      <div class="product-card-img">
+        <img src="assets/img/pro_purifier.png" alt="VERVA Pro" loading="lazy" />
+        <div class="product-card-overlay">
+          <a href="product.html?id=3" class="btn btn-secondary btn-sm">Quick View</a>
+          <button class="btn btn-primary btn-sm"
+            data-add-cart
+            data-id="3" data-name="VERVA Pro" data-price="49999"
+            data-image="assets/img/pro_purifier.png" data-variant="Standard">
+            <i class="fas fa-plus"></i> Add
+          </button>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-meta">
+          <div class="product-card-name">VERVA Pro</div>
+          <button class="hdr-icon" style="width:32px;height:32px;font-size:.85rem;" data-wishlist="3" data-name="VERVA Pro" aria-label="Wishlist">
+            <i class="far fa-heart"></i>
+          </button>
+        </div>
+        <div class="product-card-meta">
+          <div class="product-price">₹49,999</div>
+          <div class="product-stars"><i class="fas fa-star"></i> 4.9 <span class="stars-label">(2,108)</span></div>
+        </div>
+        <div class="product-tags">
+          <span class="chip">Up to 80m²</span>
+          <span class="chip">HEPA H13</span>
+        </div>
+        <button class="btn btn-primary btn-block mt-3"
+          data-add-cart
+          data-id="3" data-name="VERVA Pro" data-price="49999"
+          data-image="assets/img/pro_purifier.png" data-variant="Standard">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     SPECS PANEL
+     ====================================================== -->
+<section>
+  <div class="specs-section-grid anim-fade">
+    <div class="specs-col">
+      <div class="section-label">Technology</div>
+      <h3>Engineered for<br>Clean Air</h3>
+      <div class="spec-item">
+        <div class="spec-icon-wrap"><i class="fas fa-leaf"></i></div>
+        <div class="spec-item-text">
+          <h4>Natural 360° Airflow</h4>
+          <p>Plant-inspired design draws air from all directions, filtering 99.97% of particles down to 0.3 microns.</p>
+        </div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-icon-wrap"><i class="fas fa-volume-off"></i></div>
+        <div class="spec-item-text">
+          <h4>Ultra-Silent 42 dB</h4>
+          <p>Quieter than a whisper. Sleep peacefully while VERVA works through the night.</p>
+        </div>
+      </div>
+      <div class="spec-item">
+        <div class="spec-icon-wrap"><i class="fas fa-wifi"></i></div>
+        <div class="spec-item-text">
+          <h4>Smart Auto Mode</h4>
+          <p>Real-time air quality sensors automatically adjust fan speed to maintain perfect air 24/7.</p>
+        </div>
+      </div>
+    </div>
+    <div class="specs-col">
+      <div class="section-label">FAQ</div>
+      <h3>Your Questions,<br>Our Answers</h3>
+      <div class="accordion-group">
+        <div class="accordion-item open">
+          <div class="accordion-header">Filter Replacement Frequency <i class="fas fa-chevron-down"></i></div>
+          <div class="accordion-body"><p>Every 12 months or 5,000 hours of use. The VERVA app sends timely reminders so you never forget. Replacement filters ship free with our subscription.</p></div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header">Smart Sensor Technology <i class="fas fa-chevron-down"></i></div>
+          <div class="accordion-body"><p>Our laser particle sensor detects PM2.5, PM10, VOCs, CO₂, and humidity in real time, displaying live data in the app and on the LED ring.</p></div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header">Noise Level <i class="fas fa-chevron-down"></i></div>
+          <div class="accordion-body"><p>Sleep mode runs at just 28 dB — barely perceptible. Max turbo mode reaches 56 dB, similar to a quiet conversation.</p></div>
+        </div>
+        <div class="accordion-item">
+          <div class="accordion-header">Warranty Information <i class="fas fa-chevron-down"></i></div>
+          <div class="accordion-body"><p>Every VERVA purifier comes with a 2-year comprehensive warranty and lifetime phone/chat support. No questions asked replacement in year one.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     SOCIAL PROOF
+     ====================================================== -->
+<section>
+  <div class="section-label anim-fade">Reviews</div>
+  <h2 class="center anim-fade" style="margin-bottom:3rem;">12,400+ Happy Breathers</h2>
+  <div class="social-proof-grid">
+    <div class="review-card anim-fade">
+      <div class="review-author">
+        <div class="review-avatar">AK</div>
+        <div>
+          <div class="review-name">Arjun Kapoor</div>
+          <div class="review-verified"><i class="fas fa-circle-check"></i> Verified Buyer</div>
+        </div>
+        <div class="stars" style="margin-left:auto;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+      </div>
+      <p class="review-text">My allergies have reduced dramatically. The VERVA Pro runs in our bedroom every night — silent, effective, and the app is beautifully designed. Best purchase of the year.</p>
+    </div>
+    <div class="review-card anim-fade">
+      <div class="review-author">
+        <div class="review-avatar" style="background:var(--blue)">PS</div>
+        <div>
+          <div class="review-name">Priya Sharma</div>
+          <div class="review-verified"><i class="fas fa-circle-check"></i> Verified Buyer</div>
+        </div>
+        <div class="stars" style="margin-left:auto;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+      </div>
+      <p class="review-text">The design is stunning — it's the kind of product you're proud to leave out on your desk. But beyond looks, the air quality difference is noticeable from day one.</p>
+    </div>
+    <div class="review-card anim-fade">
+      <div class="review-author">
+        <div class="review-avatar" style="background:#8B5CF6">RS</div>
+        <div>
+          <div class="review-name">Rahul Singh</div>
+          <div class="review-verified"><i class="fas fa-circle-check"></i> Verified Buyer</div>
+        </div>
+        <div class="stars" style="margin-left:auto;"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-stroke"></i></div>
+      </div>
+      <p class="review-text">We bought the Bedroom and Office models. The smart sensor is crazy accurate — during cooking it would ramp up automatically before you even noticed any smell.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     RECOMMENDATIONS
+     ====================================================== -->
+<section>
+  <div class="section-label anim-fade">Curated For You</div>
+  <h2 class="anim-fade" style="margin-bottom:0.5rem;">You Might Also Like</h2>
+  <p class="anim-fade" style="margin-bottom:2.5rem;">Based on popular combinations and home setups.</p>
+  <div class="reco-grid">
+    <div class="product-card anim-fade">
+      <div class="product-card-img">
+        <img src="assets/img/hero_purifier.png" alt="HEPA Filter Pack" loading="lazy" />
+        <div class="product-card-overlay">
+          <button class="btn btn-primary btn-sm" data-add-cart data-id="f1" data-name="HEPA Filter Pack" data-price="4999" data-image="assets/img/hero_purifier.png" data-variant="3-Pack">Add</button>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-name">HEPA Filter Pack</div>
+        <div class="product-card-tagline">3-pack, 12-month supply</div>
+        <div class="product-price" style="font-size:1rem;">₹4,999</div>
+      </div>
+    </div>
+    <div class="product-card anim-fade">
+      <div class="product-card-img">
+        <img src="assets/img/bedroom_purifier.png" alt="VERVA Mini" loading="lazy" />
+        <div class="product-card-overlay">
+          <button class="btn btn-primary btn-sm" data-add-cart data-id="4" data-name="VERVA Mini" data-price="14999" data-image="assets/img/bedroom_purifier.png" data-variant="Standard">Add</button>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-name">VERVA Mini</div>
+        <div class="product-card-tagline">Perfect for desks &amp; nightstands</div>
+        <div class="product-price" style="font-size:1rem;">₹14,999</div>
+      </div>
+    </div>
+    <div class="product-card anim-fade">
+      <div class="product-card-img">
+        <img src="assets/img/office_purifier.png" alt="Smart Air Monitor" loading="lazy" />
+        <div class="product-card-overlay">
+          <button class="btn btn-primary btn-sm" data-add-cart data-id="m1" data-name="Smart Air Monitor" data-price="7999" data-image="assets/img/office_purifier.png" data-variant="Standard">Add</button>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-name">Smart Air Monitor</div>
+        <div class="product-card-tagline">PM2.5 · VOC · CO₂ · Humidity</div>
+        <div class="product-price" style="font-size:1rem;">₹7,999</div>
+      </div>
+    </div>
+    <div class="product-card anim-fade">
+      <div class="product-card-img">
+        <img src="assets/img/pro_purifier.png" alt="VERVA Max" loading="lazy" />
+        <div class="product-card-overlay">
+          <button class="btn btn-primary btn-sm" data-add-cart data-id="5" data-name="VERVA Max" data-price="64999" data-image="assets/img/pro_purifier.png" data-variant="Standard">Add</button>
+        </div>
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-name">VERVA Max</div>
+        <div class="product-card-tagline">For large halls, up to 120m²</div>
+        <div class="product-price" style="font-size:1rem;">₹64,999</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================
+     STATS STRIP
+     ====================================================== -->
+<section style="background:var(--text);border-radius:var(--r-xl);margin:0 var(--page-pad);padding:3.5rem;max-width:none;" class="anim-scale">
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center;max-width:1600px;margin:0 auto;">
+    <div><div class="stat-number" style="color:white;">12K+</div><div class="stat-label" style="color:rgba(244,241,238,.5);">Verified Reviews</div></div>
+    <div><div class="stat-number" style="color:var(--cta);">99.97%</div><div class="stat-label" style="color:rgba(244,241,238,.5);">Filtration Rate</div></div>
+    <div><div class="stat-number" style="color:white;">42 dB</div><div class="stat-label" style="color:rgba(244,241,238,.5);">Quietest Mode</div></div>
+    <div><div class="stat-number" style="color:white;">2 Yr</div><div class="stat-label" style="color:rgba(244,241,238,.5);">Warranty</div></div>
+  </div>
+</section>
+
+<!-- ======================================================
+     MINI CART DRAWER
+     ====================================================== -->
+<aside id="mini-cart" role="dialog" aria-label="Shopping Cart">
+  <div class="mini-cart-header">
+    <h3>Cart <span id="mini-cart-count">(0 items)</span></h3>
+    <button class="hdr-icon" id="cart-close" aria-label="Close cart"><i class="fas fa-xmark"></i></button>
+  </div>
+  <div class="mini-cart-body" id="mini-cart-body"></div>
+  <div class="mini-cart-footer">
+    <div class="cart-summary-row"><span>Subtotal</span><span id="mini-cart-total">₹0</span></div>
+    <div class="cart-summary-row"><span>Shipping</span><span style="color:var(--success)">Free</span></div>
+    <div class="cart-total-row"><span>Total</span><span id="mini-cart-grand">₹0</span></div>
+    <a href="checkout.html" class="btn btn-primary btn-block mb-2">Checkout <i class="fas fa-arrow-right"></i></a>
+    <a href="cart.html" class="btn btn-ghost btn-block">View Full Cart</a>
+  </div>
+</aside>
+<div class="cart-overlay" id="cart-overlay"></div>
+
+<!-- Search Overlay -->
+<div id="search-overlay" role="dialog" aria-label="Search">
+  <button id="search-close" class="search-close" aria-label="Close search"><i class="fas fa-xmark"></i></button>
+  <div class="search-input-wrap">
+    <input type="search" placeholder="Search for purifiers, accessories…" id="search-input" autocomplete="off" />
+    <i class="fas fa-magnifying-glass"></i>
+  </div>
+  <p style="color:var(--text-muted);margin-top:1.5rem;font-size:.85rem;">Try: Bedroom, Office, HEPA, Filter</p>
+</div>
+
+<!-- Toast container -->
+<div id="toast-container"></div>
+
+<!-- ======================================================
+     FOOTER
+     ====================================================== -->
+<footer id="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo-text">VERVA.</div>
+        <p>Pure air. Designed for life. Every VERVA purifier is engineered with care, certified to HEPA H13 standards, and backed by our 2-year warranty.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Shop</h5>
+        <ul>
+          <li><a href="shop.html">All Purifiers</a></li>
+          <li><a href="shop.html">Bedroom Series</a></li>
+          <li><a href="shop.html">Office Series</a></li>
+          <li><a href="shop.html">Pro Series</a></li>
+          <li><a href="shop.html">Accessories</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="support.html">Support & FAQ</a></li>
+          <li><a href="account.html">My Account</a></li>
+          <li><a href="wishlist.html">Wishlist</a></li>
+          <li><a href="404.html">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-newsletter footer-col">
+        <h5>Stay in the Loop</h5>
+        <p>Air quality tips, product launches, and exclusive offers.</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="your@email.com" id="footer-email" aria-label="Email for newsletter" />
+          <button class="btn btn-primary btn-sm" id="newsletter-submit">Subscribe</button>
+        </div>
+        <div class="footer-trust">
+          <span class="trust-badge"><i class="fas fa-shield-halved"></i> Secure Checkout</span>
+          <span class="trust-badge"><i class="fas fa-leaf"></i> Carbon Neutral</span>
+          <span class="trust-badge"><i class="fas fa-award"></i> ISO Certified</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 VERVA Technologies Pvt. Ltd. All rights reserved.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/main.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/product.js"></script>
+<script>
+  // Newsletter
+  document.getElementById('newsletter-submit')?.addEventListener('click', () => {
+    const v = document.getElementById('footer-email').value.trim();
+    if (!v || !v.includes('@')) { showToast('Please enter a valid email', 'error'); return; }
+    showToast('Subscribed! Check your inbox soon.', 'success');
+    document.getElementById('footer-email').value = '';
+  });
+  // Demo button
+  document.getElementById('demo-btn')?.addEventListener('click', () => {
+    showToast('Demo video coming soon!');
+  });
+</script>
+</body>
+</html>`;
+fs.writeFileSync('c:/Users/anshd/OneDrive/Desktop/My Code/Harkirat 100XDev/Projects/Verva/frontend/index.html', content, 'utf-8');
+console.log('Restored index.html');
+`;
+fs.writeFileSync('c:\\Users\\anshd\\OneDrive\\Desktop\\My Code\\Harkirat 100XDev\\Projects\\Verva\\restore_index.js', content, 'utf-8');

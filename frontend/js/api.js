@@ -22,7 +22,7 @@ const clearAuthToken = () => localStorage.removeItem('VERVA-token');
 const getRefreshToken = () => localStorage.getItem('VERVA-refresh-token');
 const setRefreshToken = (token) => localStorage.setItem('VERVA-refresh-token', token);
 
-const apiCall = async (endpoint, options = {}) => {
+const apiCall = async (endpoint, options = {}, retryCount = 0) => {
   const token = getAuthToken();
   const headers = {
     'Content-Type': 'application/json',
@@ -42,10 +42,12 @@ const apiCall = async (endpoint, options = {}) => {
     const data = await response.json();
 
     if (!response.ok) {
-      // Handle 401 Unauthorized
-      if (response.status === 401 && data.code === 'TOKEN_EXPIRED') {
-        await refreshAccessToken();
-        return apiCall(endpoint, options); // Retry
+      // Handle 401 Unauthorized - only retry once
+      if (response.status === 401 && data.code === 'TOKEN_EXPIRED' && retryCount < 1) {
+        const refreshedToken = await refreshAccessToken();
+        if (refreshedToken) {
+          return apiCall(endpoint, options, retryCount + 1); // Retry with incremented counter
+        }
       }
 
       throw new Error(data.message || 'API Error');
@@ -54,7 +56,8 @@ const apiCall = async (endpoint, options = {}) => {
     return data;
   } catch (error) {
     console.error('API Error:', error);
-    showToast?.(error.message || 'Network error', 'error');
+    // Don't show toast for every error, let the caller decide
+    // showToast?.(error.message || 'Network error', 'error');
     throw error;
   }
 };
